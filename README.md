@@ -1,44 +1,19 @@
-# Justice for Fakelandia ⚖️
+# Superheroes Top Trumps
 
-## Introduction 🧑‍⚖️
+## Introduction 
 
-The faraway country of Fakelandia has decided to modernise their justice system with a fancy new technology: "websites".
-
-Fakelandia is a happy place with a low crime rate, but it's important to each citizen that justice is seen to be served, so they'd like a website to keep abreast of the latest justice developments - and they've specifically asked for YOU to help out.
-
-Your job is to create a _React app_ which meets their requirements.
-
-_This lab won't lead you step-by-step through each line of code_, but it will lead you through all of the stages of building the app.
-
-You're going to be building the app entirely from scratch, so you'll get to use your own creativity to decide what a good solution looks like as you bring the designs to life.
-
-This is your chance to show off everything you've learned about building React applications, so feel free to be creative and have some fun.
-
-Remember the importance of:
 
 -   Writing tests for your components
 -   Using BEM/OOCSS to write scalable, reusable CSS
 -   Keeping your components small and refactoring them into sub-components where necessary
 -   Using hooks to store state, make API calls, and pass data down to sub-components through contexts
 
-## Crimes and Misdemeanours
+## Rules of the game
 
-The Fakelandians have asked for a site that lets them browse lists of crimes committed today, and also for functionality that helps citizens confess to their own crimes.
-
-As a non-citizen, you might not be aware that there are only four possible crimes in Fakelandia:
-
--   Mild Public Rudeness
--   Speaking in a Lift
--   Not Eating Your Vegetables
--   Supporting Manchester United
-
-Despite the clear severity of some of these awful crimes, the Fakelandians refer to them all as "misdemeanours".
 
 ## Project Structure
 
 Generally our frontend apps contact servers (via their APIs) which run on other peoples machines. However, it's common in frontend development to run a server locally (on our development machines) to provide a backend for us to call.
-
-The Fakelandians have provided you with a functioning web server which you can call to get details of any recent crimes.
 
 Let's test that out first.
 
