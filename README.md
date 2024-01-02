@@ -121,4 +121,3 @@ You should then be able to access the default application by opening the browser
 
 Once you're happy you have got the client and server running together, it's time to start building the app the Fakelandians want.
 
-Let's start with the homepage in [activity 1](./docs/activity_1.md).
