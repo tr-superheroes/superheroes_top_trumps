@@ -1,7 +1,3 @@
-export const ACCESS_CODE = 7753885477974593;
-export const URL =
-  "https://www.superheroapi.com/api.php/" + 7753885477974593 + "/71";
-
 export type Card = {
   response: string;
   id: number;

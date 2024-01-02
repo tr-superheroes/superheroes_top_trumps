@@ -1,5 +1,6 @@
 import fetch from "cross-fetch";
-import { Card, URL } from "../types/cards.types";
+import { Card } from "../types/cards.types";
+import { URL } from "../helpers/constants";
 const cards: Card[] = [];
 
 const fetchData = async (apiEndPoint: string) => {
@@ -11,15 +12,25 @@ const fetchData = async (apiEndPoint: string) => {
     console.log(error);
   }
 };
-export async function generateCards(number: number): Promise<Array<Card>> {
-  let amount = number ?? 14;
+export async function generateCards(
+  numberOfCards: number
+): Promise<Array<Card>> {
+  console.log("number", numberOfCards);
 
-  console.log("URL", URL);
-  await fetchData(URL);
+  const arrayOfNRandomIDs = generateNRandomIDs(numberOfCards);
+  console.log("array of ids", arrayOfNRandomIDs);
+  const urlByID = `${URL}/${arrayOfNRandomIDs[0]}`;
+  console.log("URL", urlByID);
+  await fetchData(urlByID);
   console.log("cards", cards);
   return cards;
 }
 
-function rand(x: number): number {
-  return Math.random() * x;
-}
+const generateNRandomIDs = (n: number): number[] => {
+  const arrayOfIDs: number[] = [];
+  while (arrayOfIDs.length < n) {
+    let randomNum: number = Math.floor(Math.random() * 731) + 1;
+    if (arrayOfIDs.indexOf(randomNum) === -1) arrayOfIDs.push(randomNum);
+  }
+  return arrayOfIDs;
+};

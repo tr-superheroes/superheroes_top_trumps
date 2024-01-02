@@ -1,6 +1,7 @@
 import * as express from "express";
 import { Express } from "express";
 import { getCards } from "../services/superhero_card_services";
+import { getRandomNumberFromQueryString } from "../helpers/card-route-parser";
 
 export function initialiseRoutes(app: Express) {
   console.log("🏗️  Setting up routers...");
@@ -43,18 +44,17 @@ function addAPIRoutes(app: Express) {
 
   // this route allows clients to GET cards
   console.log("📨  Adding GET getcards route...");
-  apiRouter.get("/cards/:amount", async (req, res) => {
-    const amount = req.params.amount;
-
-    const requestedAmount = Number.parseInt(amount);
-
-    if (Number.isNaN(requestedAmount)) {
+  apiRouter.get("/cards", async (req, res) => {
+    const totalNumberOfCardsRequested = getRandomNumberFromQueryString(
+      req.query
+    );
+    if (Number.isNaN(totalNumberOfCardsRequested)) {
       res.status(500).send({ message: "Invalid amount" });
       return;
     }
 
     const result = JSON.stringify({
-      cards: await getCards(requestedAmount),
+      cards: await getCards(totalNumberOfCardsRequested),
     });
     res.status(200).send(result);
   });

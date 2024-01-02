@@ -34,7 +34,7 @@ try {
         `⭐    Health check at "http://localhost:${PORT}/health"            ⭐`
       );
       console.log(
-        `⭐    Or try "http://localhost:${PORT}/api/cards/3"                ⭐`
+        `⭐    Or try "http://localhost:${PORT}/api/cards?random=3"         ⭐`
       );
       console.log(
         `⭐    🗺️  Try changing the number of cards requested!            ⭐`
