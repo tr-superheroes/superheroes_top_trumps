@@ -11,7 +11,7 @@ const formatCard = (card: any): Card => {
   };
 };
 
-const fetchCard = async (apiEndPoint: string): Promise<Card> => {
+export const fetchCard = async (apiEndPoint: string): Promise<Card> => {
   const response = await fetch(apiEndPoint);
   const card = await response.json();
   return formatCard(card);
@@ -43,9 +43,10 @@ export async function generateCards(
   return cards;
 }
 
-const generateRandomID = (): number => Math.floor(Math.random() * 731) + 1;
+export const generateRandomID = (): number =>
+  Math.floor(Math.random() * 731) + 1;
 
-const isPresentInDeck = (randomId: number, cards: Card[]): boolean => {
+export const isPresentInDeck = (randomId: number, cards: Card[]): boolean => {
   let idArray = cards.map((card) => card.id);
   return idArray.some((id) => id === randomId);
 };
