@@ -1,36 +1,51 @@
 import fetch from "cross-fetch";
 import { Card } from "../types/cards.types";
-import { URL } from "../helpers/constants";
-const cards: Card[] = [];
+import { NULLSTRING, URL } from "../helpers/constants";
 
-const fetchData = async (apiEndPoint: string) => {
-  try {
-    const response = await fetch(apiEndPoint);
-    const json = await response.json();
-    cards.push(json);
-  } catch (error) {
-    console.log(error);
-  }
+const formatCard = (card: any): Card => {
+  return {
+    id: card.id,
+    name: card.name,
+    image: card.image.url,
+    powerstats: card.powerstats,
+  };
+};
+
+const fetchCard = async (apiEndPoint: string): Promise<Card> => {
+  const response = await fetch(apiEndPoint);
+  const card = await response.json();
+  return formatCard(card);
 };
 export async function generateCards(
   numberOfCards: number
 ): Promise<Array<Card>> {
-  console.log("number", numberOfCards);
+  const cards: Card[] = [];
+  while (cards.length < numberOfCards) {
+    const randomCardId = generateRandomID();
+    if (!isPresentInDeck(randomCardId, cards)) {
+      const urlByID = `${URL}/${randomCardId}`;
+      console.log("URL", urlByID);
 
-  const arrayOfNRandomIDs = generateNRandomIDs(numberOfCards);
-  console.log("array of ids", arrayOfNRandomIDs);
-  const urlByID = `${URL}/${arrayOfNRandomIDs[0]}`;
-  console.log("URL", urlByID);
-  await fetchData(urlByID);
-  console.log("cards", cards);
+      const card: Card = await fetchCard(urlByID);
+      if (
+        card.powerstats.combat !== NULLSTRING &&
+        card.powerstats.durability !== NULLSTRING &&
+        card.powerstats.intelligence !== NULLSTRING &&
+        card.powerstats.power !== NULLSTRING &&
+        card.powerstats.speed !== NULLSTRING &&
+        card.powerstats.strength !== NULLSTRING
+      ) {
+        cards.push(card);
+      }
+    }
+  }
+  console.log(cards);
   return cards;
 }
 
-const generateNRandomIDs = (n: number): number[] => {
-  const arrayOfIDs: number[] = [];
-  while (arrayOfIDs.length < n) {
-    let randomNum: number = Math.floor(Math.random() * 731) + 1;
-    if (arrayOfIDs.indexOf(randomNum) === -1) arrayOfIDs.push(randomNum);
-  }
-  return arrayOfIDs;
+const generateRandomID = (): number => Math.floor(Math.random() * 731) + 1;
+
+const isPresentInDeck = (randomId: number, cards: Card[]): boolean => {
+  let idArray = cards.map((card) => card.id);
+  return idArray.some((id) => id === randomId);
 };
