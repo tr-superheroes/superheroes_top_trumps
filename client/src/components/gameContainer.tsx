@@ -3,7 +3,7 @@ import { CardContainer } from "./cardContainer"
 import { GameContext } from "./startGame"
 import { FetchGameResponse } from "../types/game.types";
 
-export const PlayerCardArray = createContext<FetchGameResponse>([]);
+export const PlayerCardArrayContext = createContext<FetchGameResponse>([]);
 export const GameContainer:React.FC = () =>{
     //load card containers for pc & player
     //load message container for showing scores/winner for each round
@@ -13,8 +13,8 @@ export const GameContainer:React.FC = () =>{
     const allCardsArray = useContext(GameContext)
     
     return (
-        <PlayerCardArray.Provider value={allCardsArray.slice(0,allCardsArray.length/2)}>
+        <PlayerCardArrayContext.Provider value={allCardsArray.slice(0,allCardsArray.length/2)}>
             <CardContainer/>
-        </PlayerCardArray.Provider>
+        </PlayerCardArrayContext.Provider>
     )
 }
