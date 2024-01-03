@@ -1,7 +1,7 @@
 import * as express from "express";
 import { Express } from "express";
 import { getCards } from "../services/superhero_card_services";
-import { getRandomNumberFromQueryString } from "../helpers/card-route-parser";
+import { getRandomNumberFromQueryString } from "../helpers/card_route_parser";
 
 export function initialiseRoutes(app: Express) {
   console.log("🏗️  Setting up routers...");

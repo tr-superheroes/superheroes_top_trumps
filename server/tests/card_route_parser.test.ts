@@ -1,4 +1,4 @@
-import { getRandomNumberFromQueryString } from "../helpers/card-route-parser";
+import { getRandomNumberFromQueryString } from "../helpers/card_route_parser";
 
 describe("test getRandomNumberFromQueryString function", () => {
   it("should return the value assigned to random in the query string", () => {
