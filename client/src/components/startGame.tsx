@@ -1,8 +1,10 @@
-import { useState,useEffect } from "react"
-import { FETCH_URL } from "../types/game.types";
+import { useState,useEffect, createContext } from "react"
+import { FETCH_URL, FetchGameResponse } from "../types/game.types";
+import { GameContainer } from "./gameContainer";
 
+export const GameContext = createContext<FetchGameResponse>([]);
 export const StartGame:React.FC =() =>{
-    const noOfCards = 3;
+    const noOfCards = 7;
     const [isNewGame,setIsNewGame] = useState(true);
     const [response,setResponse] = useState([]);
     const fetchCards = async() =>{
@@ -15,24 +17,25 @@ export const StartGame:React.FC =() =>{
         }
     }
     useEffect(() => {
-        if (!isNewGame) {
-          // Call the async function when isNewGame is false
+          // Call the async function when component loads
           fetchCards();
-          //if not error load gamecontainer
           console.log(response);
-            
-        }
-      }, [isNewGame]);
+        },[]);
 
     const handleClick = () =>{
-        setIsNewGame(false);
-        //do a fetch from server , set in context, load the gamecomponent
-
+        setIsNewGame(false); //hides the button and loads the game container
     }
 
     return (
-        <div>
-            {isNewGame && <button onClick={handleClick}>Start Game</button>}
-        </div>
+        <GameContext.Provider value={response}>
+        
+            <div hidden={!isNewGame}>
+                <caption> Welcome to SuperHero Top Trumps Game!</caption>
+                <p>Click the button to start playing.</p>
+                <button onClick={handleClick}>Start Game</button>
+            </div>
+            
+            {!isNewGame && <GameContainer/>}
+        </GameContext.Provider>
     )
 }
