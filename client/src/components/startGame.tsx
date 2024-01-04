@@ -31,7 +31,6 @@ export const StartGame:React.FC =() =>{
         <GameContext.Provider value={response}>
         
             <div hidden={!isNewGame}>
-                <caption> Welcome to SuperHero Top Trumps Game!</caption>
                 <p>Click the button to start playing.</p>
                 <button onClick={handleClick}>Start Game</button>
             </div>
