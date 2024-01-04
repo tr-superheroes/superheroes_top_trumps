@@ -1,6 +1,6 @@
 import { useContext,createContext, useState } from "react"
 import { GameContext } from "./startGame"
-import { FetchGameResponse } from "../types/game.types";
+import { FetchGameResponse, PowerstatsType, Winner } from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
 import { CardStackPC } from "./card-stack-pc";
@@ -20,19 +20,62 @@ export const GameContainer:React.FC = () =>{
     const [currentPCCardIndex,setCurrentPCCardIndex] = useState(pcArray.length-1);
 
     const [scores,setScores] = useState({pc:0,player:0});
-    const [winner,SetWinner] = useState();
+    const [winner,setWinner] = useState<Winner|null>(null);
+    const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
 
-    const handlePlay = () =>{
+    const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>('power');
+
+    const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        console.log('chosen:'+e.target.value);
+        setChosenPowerStat(e.target.value as PowerstatsType);
+    }
+    const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
+        e.preventDefault();
         console.log('here');
+        //compare current cards' power stats
+
+        if(chosenPowerStat !== undefined){
+            console.log('player power:'+ (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat]);
+            console.log('PC power:'+(pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]);
+            if((playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat] > (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]){
+                //set score
+                const newScores = {...scores,player:scores.player+1};
+                setScores(newScores);
+                setWinner('Player');
+                setPlayerTurn(true);
+                
+            }else if((playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat] < (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]){
+                
+                const newScores = {...scores,pc:scores.pc+1};
+                setScores(newScores);
+                setWinner("PC"); // not setting don't know why
+                setPlayerTurn(false);
+                
+            }else{
+                //scores equal
+                console.log('power equal');
+                setPlayerTurn(true);
+            }
+            console.log('winner:'+winner);
+            //check if last turn
+            if(currentPlayerCardIndex-1 >= 0 && currentPCCardIndex-1 >=0){
+                //assign for next round trigger
+                console.log('index:'+currentPlayerCardIndex);
+                setCurrentPlayerCardIndex(currentPlayerCardIndex-1);
+                setCurrentPCCardIndex(currentPCCardIndex -1);
+            }else{
+                //set winner message
+                console.log('done with cards');
+                if(scores.player > scores.pc){  
+                    console.log('Winner is Player');
+                }
+            }
+        
+        }
+
+        
     }
 
-    /*
-    const [turns, setTurns] = useState();
-    scores: { pc: 0, player: 0};
-    data: {pc: [{}, {}, ], player: [{}, {}, {}];
-    start with player
-    next turn is winner
-    */
     return (
 
         <main className="main-layout">
@@ -41,7 +84,7 @@ export const GameContainer:React.FC = () =>{
                 <CardStackPC/>
             </div>
             <div className="card-container">
-                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]}/>
+                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} turn={playerTurn} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
                 <CardStackPlayer/> {//pass the current player index+1 to be able to loop through
                                     }
             </div>

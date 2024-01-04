@@ -1,4 +1,11 @@
-export const PowerstatsForm:React.FC =() =>{
+import React from "react";
+
+interface FormProps{
+    turn:boolean;
+    onClickFn :(e:React.FormEvent<HTMLButtonElement>) =>void;
+    optionChangeFn:(e:React.ChangeEvent<HTMLInputElement>)=>void;
+}
+export const PowerstatsForm:React.FC<FormProps> =({turn,onClickFn,optionChangeFn}) =>{
 
     return (
         <>
@@ -16,7 +23,7 @@ export const PowerstatsForm:React.FC =() =>{
             <label htmlFor="power">Power: 95</label><br />
             <input type="radio" id="combat" name="powerstats" value="65" />
             <label htmlFor="combat">Combat: 65</label><br />
-            <input className="hero__button" type="submit" value="Play Card" />
+            <input className="hero__button" type="submit" value="Play Card" disabled={!turn} onClick={onClickFn}/>
         </form>
         </>
     )

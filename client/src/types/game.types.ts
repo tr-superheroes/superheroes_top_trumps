@@ -14,4 +14,4 @@ export type TrumpCard = {
   };
 };
 export type FetchGameResponse = Array<TrumpCard>;
-export type NO_OF_CARDS = 7;
+export const NO_OF_CARDS = 7;
