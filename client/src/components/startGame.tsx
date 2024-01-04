@@ -4,14 +4,15 @@ import { GameContainer } from "./gameContainer";
 
 export const GameContext = createContext<FetchGameResponse>([]);
 export const StartGame:React.FC =() =>{
-    const noOfCards = 7;
     const [isNewGame,setIsNewGame] = useState(true);
-    const [response,setResponse] = useState([]);
+    const [response,setResponse] = useState<FetchGameResponse>([]);
+    //const noOfCards = 7;
     const fetchCards = async() =>{
         try{
-            const data = await fetch(FETCH_URL+noOfCards);
+            const data = await fetch(FETCH_URL);
             const result = await data.json();
-            setResponse(result);
+            setResponse(result.cards);
+            console.log(result.cards.length);
         }catch(error){
             console.log(error);
         }
