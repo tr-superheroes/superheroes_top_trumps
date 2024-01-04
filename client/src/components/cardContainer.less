@@ -1,0 +1,30 @@
+.card-container {
+    font-family: "Bangers";
+    flex-basis: 0.5;
+    width: 40%;
+    margin: 0 0 0 30%;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10px, max-content));
+    box-sizing: border-box;
+    @media (min-width: 300px) {
+        width: 55%;
+    margin: auto 0 auto 45%;
+    }
+    @media (min-width: 600px) {
+        width: 70%;
+    margin: auto 0 auto 30%;
+    }
+    @media (min-width: 768px) {
+        width: 80%;
+    margin: auto 0 auto 20%;
+    }
+    @media (min-width: 992px) {
+        width: 90%;
+    margin: auto 0 auto 10%;
+    }
+    @media (min-width: 992px) {
+        width: 100%;
+    margin: 0;
+    }
+}
