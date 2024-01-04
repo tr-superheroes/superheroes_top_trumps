@@ -17,7 +17,9 @@ Generally our frontend apps contact servers (via their APIs) which run on other 
 
 Let's test that out first.
 
-👉 Run `npm install` and then `npm run start-server`
+👉 Run `npm install`
+👉 Create a .env file under the server folder with  ACCESS_TOKEN variable set to the number generated at https://superheroapi.com/index.html 
+👉 Start server `npm run start-server`
 
 ⚠️ NOTE: The command is `npm run start-server` NOT `npm start`
 
