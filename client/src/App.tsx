@@ -1,4 +1,4 @@
-import './App.css'
+import './App.less'
 import { StartGame } from './components/startGame'
 
 function App() {
