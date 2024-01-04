@@ -1,5 +1,3 @@
-import { TopCardPC } from "./top-card-pc";
-import { TopCardPlayer } from "./top-card-player";
 import { PlayerCardArrayContext } from "./gameContainer"
 import {useContext} from "react"
 
@@ -14,8 +12,7 @@ export const CardContainer:React.FC = () =>{
             ))
             */
            <>     
-            <TopCardPC />
-            <TopCardPlayer /></>
+            </>
         }
 
         </>
