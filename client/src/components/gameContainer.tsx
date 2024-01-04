@@ -1,9 +1,10 @@
 import { useContext,createContext } from "react"
-import { CardContainer } from "./cardContainer"
 import { GameContext } from "./startGame"
 import { FetchGameResponse } from "../types/game.types";
-import { CardPlayer } from "./card-player";
-import { CardPC } from "./card-pc";
+import { TopCardPlayer } from "./top-card-player";
+import { TopCardPC } from "./top-card-pc";
+import { CardStackPC } from "./card-stack-pc";
+import { CardStackPlayer } from "./card-stack-player";
 
 export const PlayerCardArrayContext = createContext<FetchGameResponse>([]);
 export const GameContainer:React.FC = () =>{
@@ -25,10 +26,12 @@ export const GameContainer:React.FC = () =>{
         <PlayerCardArrayContext.Provider value={allCardsArray.slice(0,allCardsArray.length/2)}>
             <main className="main-layout">
             <div className="card-container">
-            <CardPC/>
+            <TopCardPC/>
+            <CardStackPC/>
             </div>
             <div className="card-container">
-            <CardPlayer/>
+            <TopCardPlayer/>
+            <CardStackPlayer/>
             </div>
             </main>  
         </PlayerCardArrayContext.Provider>

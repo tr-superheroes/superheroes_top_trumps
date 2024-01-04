@@ -19,8 +19,8 @@ export const StartGame:React.FC =() =>{
     }
     useEffect(() => {
           // Call the async function when component loads
-          fetchCards();
-          console.log(response);
+        fetchCards();
+        console.log(response);
         },[]);
 
     const handleClick = () =>{
