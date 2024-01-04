@@ -1,5 +1,5 @@
 export const CardStackPC:React.FC =() =>{
-
+// to be a loop based on the number of turns left, top card should always be there
     return (
     <>
     <div className="card-wrapper">
