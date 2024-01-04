@@ -2,20 +2,6 @@ import fetch from "cross-fetch";
 import { Card } from "../types/cards.types";
 import { NULLSTRING, URL } from "../helpers/constants";
 
-const formatCard = (card: any): Card => {
-  return {
-    id: card.id,
-    name: card.name,
-    image: card.image.url,
-    powerstats: card.powerstats,
-  };
-};
-
-export const fetchCard = async (apiEndPoint: string): Promise<Card> => {
-  const response = await fetch(apiEndPoint);
-  const card = await response.json();
-  return formatCard(card);
-};
 export async function generateCards(
   numberOfCards: number
 ): Promise<Array<Card>> {
@@ -39,9 +25,23 @@ export async function generateCards(
       }
     }
   }
-  console.log(cards);
   return cards;
 }
+
+const formatCard = (card: any): Card => {
+  return {
+    id: card.id,
+    name: card.name,
+    image: card.image.url,
+    powerstats: card.powerstats,
+  };
+};
+
+export const fetchCard = async (apiEndPoint: string): Promise<Card> => {
+  const response = await fetch(apiEndPoint);
+  const card = await response.json();
+  return formatCard(card);
+};
 
 export const generateRandomID = (): number =>
   Math.floor(Math.random() * 731) + 1;

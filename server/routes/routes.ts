@@ -45,18 +45,21 @@ function addAPIRoutes(app: Express) {
   // this route allows clients to GET cards
   console.log("📨  Adding GET getcards route...");
   apiRouter.get("/cards", async (req, res) => {
-    const totalNumberOfCardsRequested = getRandomNumberFromQueryString(
-      req.query
-    );
-    if (Number.isNaN(totalNumberOfCardsRequested)) {
-      res.status(500).send({ message: "Invalid amount" });
-      return;
+    const resultFromQueryString = getRandomNumberFromQueryString(req.query);
+    switch (resultFromQueryString._t) {
+      case "success":
+        const result = JSON.stringify({
+          cards: await getCards(resultFromQueryString.num),
+        });
+        res.status(200).send(result);
+        break;
+      case "invalid":
+        res.status(500).send({ message: "Invalid query" });
+        return;
+      case "NaN":
+        res.status(500).send({ message: "Invalid amount" });
+        return;
     }
-
-    const result = JSON.stringify({
-      cards: await getCards(totalNumberOfCardsRequested),
-    });
-    res.status(200).send(result);
   });
 
   console.log("🛠️  Applying API router to Express server...");
