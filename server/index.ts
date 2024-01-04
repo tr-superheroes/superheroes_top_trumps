@@ -34,6 +34,12 @@ try {
         `⭐    Health check at "http://localhost:${PORT}/health"            ⭐`
       );
       console.log(
+        `⭐    Or try "http://localhost:${PORT}/api/cards"                  ⭐`
+      );
+      console.log(
+        `⭐    to get a default of 14 random unique cards!               ⭐`
+      );
+      console.log(
         `⭐    Or try "http://localhost:${PORT}/api/cards?random=3"         ⭐`
       );
       console.log(
