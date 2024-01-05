@@ -30,13 +30,25 @@ export const StartGame:React.FC =() =>{
     return (
         <GameContext.Provider value={response}>
         {isNewGame &&
+        <>
+        <div className = "shield-wrapper">
+        <div className = "shield-text">Superhero Top Trumps</div>
+         </div>
             <div className = "start">
                 <p>Click the button to start playing.</p>
                 <button onClick={handleClick}>Start Game</button>
             </div>
+        </>
         }   
             
-            {!isNewGame && <GameContainer/>}
+            {!isNewGame && 
+            <>
+            <div className = "bubble-wrapper">
+            <div className = "bubble-text">You won the round!</div>
+            </div>
+            <GameContainer/>
+            </>
+            }
         </GameContext.Provider>
     )
 }
