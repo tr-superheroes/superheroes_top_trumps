@@ -26,7 +26,7 @@ export const StartGame:React.FC =() =>{
           // Call the async function when component loads
         fetchCards();
         console.log(response);
-        },[]); //handle no data case
+        },[]); //handle no data case,maybe enable game button once data is ready
 
     const handleClick = () =>{
         setIsNewGame(false); //hides the button and loads the game container
@@ -34,16 +34,30 @@ export const StartGame:React.FC =() =>{
 
     return (
         <GameContext.Provider value={response}>
+        {isNewGame &&
+        <>
+            <div className = "shield-wrapper">
+            {isLoading &&
+            <div className = "shield-text">Superhero Top Trumps</div>
+            }
+            </div>
+        </>}
         {isError && (<p>Error Loading the game</p>)}
         {!isError && isLoading &&  (<p>Loading</p>)}
         {!isError && !isLoading && isNewGame &&
+        <>
             <div className = "start">
                 <p>Click the button to start playing.</p>
                 <button onClick={handleClick} >Start Game</button>
             </div>
+        </>
         }   
             
-            {!isNewGame && <GameContainer/>}
+            {!isNewGame && 
+            <>
+            <GameContainer/>
+            </>
+            }
         </GameContext.Provider>
     )
 }

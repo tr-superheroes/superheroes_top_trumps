@@ -16,9 +16,6 @@ export type TrumpCard = {
 export type FetchGameResponse = Array<TrumpCard>;
 export const NO_OF_CARDS = 7;
 
-export const WINNERS = ["PC", "Player"] as const;
-export type Winner = (typeof WINNERS)[number];
-
 export const Powerstats = [
   "intelligence",
   "strength",
