@@ -97,14 +97,13 @@ export const GameContainer:React.FC = () =>{
         <main className="main-layout">
 
             <div className="card-container">
-                <TopCardPC/>
+                <TopCardPC gameRound = {playerCardsArray.length - currentPlayerCardIndex}  />
 
                 <CardStack 
                 cssClassType = "pc"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {true}
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
 
@@ -127,7 +126,6 @@ export const GameContainer:React.FC = () =>{
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {true}
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
 

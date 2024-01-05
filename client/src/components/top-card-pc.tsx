@@ -1,10 +1,14 @@
-import { PowerstatsList } from "./powerstats-list"
+import { PowerstatsList } from "./powerstats-list";
 
-export const TopCardPC:React.FC =() =>{
+interface PCCardProps{
+  gameRound: number;
+}
 
+export const TopCardPC:React.FC<PCCardProps> =({gameRound}) =>{
+  const divClasses = `hero hero--pc hero${gameRound.toString()}`;
     return (
         <>
-        <div className="hero hero--pc">
+        <div className= {divClasses}>
           <img className="hero__img" src="/../src/assets/images/hero1.png" />
           <h2 className="hero__header">Abe Sapien</h2>
           

@@ -1,7 +1,6 @@
 import { Card, CardProps } from "./card";
 
 interface CardStackProps {
-    gameRound: number;
     stackLength: number;
     cssClassType: string;
     topCardImage: string;
@@ -10,10 +9,9 @@ interface CardStackProps {
 }
 
 export const CardStack:React.FC<CardStackProps> = 
-({stackLength, gameRound, cssClassType, topCardImage, showTopCardData, cardBackImage}) =>{
+({stackLength, cssClassType, topCardImage, showTopCardData, cardBackImage}) =>{
 
     console.log("stackLength", stackLength);
-    console.log("gameRound", gameRound);
 
     const cssCardBackClass = `card card--${cssClassType}`;
     const cssTopLayerClass = `top top__data--${cssClassType}`;
