@@ -29,11 +29,12 @@ export const StartGame:React.FC =() =>{
 
     return (
         <GameContext.Provider value={response}>
-        
-            <div hidden={!isNewGame}>
+        {isNewGame &&
+            <div className = "start">
                 <p>Click the button to start playing.</p>
                 <button onClick={handleClick}>Start Game</button>
             </div>
+        }   
             
             {!isNewGame && <GameContainer/>}
         </GameContext.Provider>
