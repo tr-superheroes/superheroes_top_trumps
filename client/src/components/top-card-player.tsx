@@ -4,12 +4,14 @@ interface CardProps{
   card:TrumpCard;
   onClickFn:() =>void;
   optionChangeFn:(e:React.ChangeEvent<HTMLInputElement>)=>void;
+  gameRound: number;
 }
-export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn}) =>{
+export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn, gameRound}) =>{
+  const divClasses = `hero hero--player hero--player${gameRound.toString()}`;
   console.log('card here:'+card.name);
     return (
         <>
-        <div className="hero hero--player">
+        <div className = {divClasses}>
           {//<img className="hero__img" src="/../src/assets/images/hero2.png" />
           }
           <img className="hero__img" src={card.image} />
