@@ -6,22 +6,27 @@ export const GameContext = createContext<FetchGameResponse>([]);
 export const StartGame:React.FC =() =>{
     const [isNewGame,setIsNewGame] = useState(true);
     const [response,setResponse] = useState<FetchGameResponse>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setError] = useState(false);
     //const noOfCards = 7;
     const fetchCards = async() =>{
         try{
+            setIsLoading(true);
             const data = await fetch(FETCH_URL);
             const result = await data.json();
             setResponse(result.cards);
+            setIsLoading(false);
             console.log(result.cards.length);
         }catch(error){
             console.log(error);
+            setError(true);
         }
     }
     useEffect(() => {
           // Call the async function when component loads
         fetchCards();
         console.log(response);
-        },[]); //handle no data case
+        },[]); //handle no data case,maybe enable game button once data is ready
 
     const handleClick = () =>{
         setIsNewGame(false); //hides the button and loads the game container
@@ -31,21 +36,25 @@ export const StartGame:React.FC =() =>{
         <GameContext.Provider value={response}>
         {isNewGame &&
         <>
-        <div className = "shield-wrapper">
-        <div className = "shield-text">Superhero Top Trumps</div>
-         </div>
+            <div className = "shield-wrapper">
+            {isLoading &&
+            <div className = "shield-text">Superhero Top Trumps</div>
+            }
+            </div>
+        </>}
+        {isError && (<p>Error Loading the game</p>)}
+        {!isError && isLoading &&  (<p>Loading</p>)}
+        {!isError && !isLoading && isNewGame &&
+        <>
             <div className = "start">
                 <p>Click the button to start playing.</p>
-                <button onClick={handleClick}>Start Game</button>
+                <button onClick={handleClick} >Start Game</button>
             </div>
         </>
         }   
             
             {!isNewGame && 
             <>
-            <div className = "bubble-wrapper">
-            <div className = "bubble-text">You won the round!</div>
-            </div>
             <GameContainer/>
             </>
             }

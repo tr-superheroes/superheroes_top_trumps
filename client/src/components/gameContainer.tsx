@@ -1,10 +1,12 @@
-import { useContext,createContext, useState } from "react"
+import { useContext, useState } from "react"
 import { GameContext } from "./startGame"
-import { FetchGameResponse, PowerstatsType, Winner } from "../types/game.types";
+import { PowerstatsType} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
 import { CardStackPC } from "./card-stack-pc";
 import { CardStackPlayer } from "./card-stack-player";
+import { MessageContainer } from "./message";
+import { NextTurn } from "./nextTurn";
 
 export const GameContainer:React.FC = () =>{
     //load message container for showing scores/winner for each round
@@ -19,57 +21,73 @@ export const GameContainer:React.FC = () =>{
     const [currentPCCardIndex,setCurrentPCCardIndex] = useState(pcArray.length-1);
 
     const [scores,setScores] = useState({pc:0,player:0});
-    const [winner,setWinner] = useState<Winner|null>(null);
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
-
-    const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>('power');
+    const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>();
+    const [message,setMessage] = useState("Your turn");
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         console.log('chosen:'+e.target.id);
         setChosenPowerStat(e.target.id as PowerstatsType);
     }
+
+    const handleNextTurn =() =>{
+        console.log('next turn');
+        setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
+        //setPlayerTurn(true);
+        setMessage('Your turn');
+        console.log("score player:"+scores.player);
+        //check if last turn
+        if(currentPlayerCardIndex-1 >= 0 && currentPCCardIndex-1 >=0){
+            //assign for next round trigger
+            console.log('index:'+currentPlayerCardIndex);
+            
+            setCurrentPlayerCardIndex(currentPlayerCardIndex-1);
+            setCurrentPCCardIndex(currentPCCardIndex -1);
+        }else{
+            //set winner message
+            if(scores.player > scores.pc){  
+                setMessage('Player wins this game');
+            }else if(scores.player < scores.pc){
+                setMessage('PC wins this game');
+            }else{
+                setMessage("It's a draw!");
+            }
+        }
+    }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
-        console.log('here');
-        //compare current cards' power stats
-
+        //e.currentTarget.disabled = true;
+        
         if(chosenPowerStat !== undefined){
-            console.log('player power:'+ (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat]);
-            console.log('PC power:'+(pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]);
-            if((playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat] > (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]){
+            const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat];
+            const pcStat = (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat];
+            console.log('player power:'+ playerStat);
+            console.log('PC power:'+pcStat);
+            //flip PC top card
+
+            
+            if( parseInt(playerStat)> parseInt(pcStat) ){
                 //set score
                 const newScores = {...scores,player:scores.player+1};
                 setScores(newScores);
-                setWinner('Player');
                 setPlayerTurn(true);
+                setMessage("Player wins this round!");
                 
-            }else if((playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat] < (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat]){
+                
+            }else if(parseInt(playerStat)< parseInt(pcStat)){
                 
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
-                setWinner("PC"); // not setting don't know why
                 setPlayerTurn(false);
+                setMessage("PC wins this round!");
                 
             }else{
                 //scores equal
                 console.log('power equal');
                 setPlayerTurn(true);
+                setMessage("It's a draw!");
+                
             }
-            console.log('winner:'+winner);
-            //check if last turn
-            if(currentPlayerCardIndex-1 >= 0 && currentPCCardIndex-1 >=0){
-                //assign for next round trigger
-                console.log('index:'+currentPlayerCardIndex);
-                setCurrentPlayerCardIndex(currentPlayerCardIndex-1);
-                setCurrentPCCardIndex(currentPCCardIndex -1);
-            }else{
-                //set winner message
-                console.log('done with cards');
-                if(scores.player > scores.pc){  
-                    console.log('Winner is Player');
-                }
-            }
-        
         }
 
         
@@ -82,8 +100,17 @@ export const GameContainer:React.FC = () =>{
                 <TopCardPC/>
                 <CardStackPC/>
             </div>
+
+            <div className = "bubble-wrapper">
+            <div className = "bubble-text">
+                <MessageContainer message={message} imgUrl=""></MessageContainer>
+                </div>
+            </div>
+            <div className = "fix-to-bottom">
+                <NextTurn onClickFn={handleNextTurn}/>
+            </div>
             <div className="card-container">
-                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} turn={playerTurn} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
+                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
                 <CardStackPlayer/> {//pass the current player index+1 to be able to loop through
                                     }
             </div>
