@@ -79,7 +79,7 @@ export const GameContainer:React.FC = () =>{
 
         <main className="main-layout">
             <div className="card-container">
-                <TopCardPC/>
+                <TopCardPC card={pcArray[currentPCCardIndex]} turn={!playerTurn} onClickFn={handlePlay} optionChangeFn ={handleOptionChange}/>
                 <CardStackPC/>
             </div>
             <div className="card-container">

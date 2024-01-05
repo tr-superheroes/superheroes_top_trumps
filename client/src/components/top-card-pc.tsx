@@ -1,14 +1,23 @@
 import { PowerstatsList } from "./powerstats-list"
+import { TrumpCard } from "../types/game.types"
 
-export const TopCardPC:React.FC =() =>{
+interface TopCardPCProps {
+  card:TrumpCard;
+  turn:boolean;
+  onClickFn:() =>void;
+  optionChangeFn:(e:React.ChangeEvent<HTMLInputElement>)=>void;
+}
+export const TopCardPC:React.FC<TopCardPCProps> =({card}) =>{
+
+  console.log("PC card",card.name);
 
     return (
-        <>
+        <> 
         <div className="hero hero--pc">
-          <img className="hero__img" src="/../src/assets/images/hero1.png" />
-          <h2 className="hero__header">Abe Sapien</h2>
+          <img className="hero__img" src={card.image} />
+          <h2 className="hero__header">{card.name}</h2>
           
-          <PowerstatsList/>
+          <PowerstatsList powerstats={card.powerstats}/>
 
         </div>
         </>
