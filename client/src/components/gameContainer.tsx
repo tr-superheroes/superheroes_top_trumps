@@ -6,7 +6,6 @@ import { TopCardPC } from "./top-card-pc";
 import { CardStackPC } from "./card-stack-pc";
 import { CardStackPlayer } from "./card-stack-player";
 
-//export const PlayerCardArrayContext = createContext<FetchGameResponse>([]);
 export const GameContainer:React.FC = () =>{
     //load message container for showing scores/winner for each round
     //keep score in state

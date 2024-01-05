@@ -14,9 +14,9 @@ export const PowerstatsForm:React.FC<FormProps> =({powerstats,turn,onClickFn,opt
         <h3>Powerstats</h3>
         <form className="hero__form">
             {  
-            (Object.keys(powerstats)as PowerstatsType[]).map((stat) => (
+            (Object.keys(powerstats)as PowerstatsType[]).map((stat,index) => (
                 <>
-                    <input type="radio" id={stat} name="powerstat" onChange={optionChangeFn} value={powerstats[stat]} />
+                    <input key={index} type="radio" id={stat} name="powerstat" onChange={optionChangeFn} value={powerstats[stat]} />
                     <label htmlFor={stat}>{`${stat}: ${powerstats[stat]}`}</label><br/>
                 </>
             ))}
