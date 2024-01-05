@@ -21,7 +21,7 @@ export const StartGame:React.FC =() =>{
           // Call the async function when component loads
         fetchCards();
         console.log(response);
-        },[]);
+        },[]); //handle no data case
 
     const handleClick = () =>{
         setIsNewGame(false); //hides the button and loads the game container

@@ -1,3 +1,4 @@
+import { TrumpCard } from "../types/game.types";
 import { PlayerCardArrayContext } from "./gameContainer"
 import {useContext} from "react"
 
@@ -7,12 +8,9 @@ export const CardContainer:React.FC = () =>{
     return (
         <>
         {
-            /*cards.map ((item:TrumpCard) => (
-                <p>{item.name}</p>
+            cards.map ((item:TrumpCard) => (
+                <p>{item.name}</p> //this would be the card, need to see how to show the last one and hide rest
             ))
-            */
-           <>     
-            </>
         }
 
         </>

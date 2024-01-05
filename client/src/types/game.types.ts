@@ -14,4 +14,26 @@ export type TrumpCard = {
   };
 };
 export type FetchGameResponse = Array<TrumpCard>;
-export type NO_OF_CARDS = 7;
+export const NO_OF_CARDS = 7;
+
+export const WINNERS = ["PC", "Player"] as const;
+export type Winner = (typeof WINNERS)[number];
+
+export const Powerstats = [
+  "intelligence",
+  "strength",
+  "speed",
+  "durability",
+  "power",
+  "combat",
+] as const;
+export type PowerstatsType = (typeof Powerstats)[number];
+
+export type PowerstatsObj = {
+  intelligence: string;
+  strength: string;
+  speed: string;
+  durability: string;
+  power: string;
+  combat: string;
+};
