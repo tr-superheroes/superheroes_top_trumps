@@ -111,7 +111,10 @@ export const GameContainer:React.FC = () =>{
             </div>
             <div className="card-container">
                 <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
-                <CardStackPlayer gameRound = {playerCardsArray.length - currentPlayerCardIndex} stackLength = {currentPlayerCardIndex} /> 
+                <CardStackPlayer 
+                cssClassType = "player"
+                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+                stackLength = {currentPlayerCardIndex} /> 
             </div>
         </main>  
         
