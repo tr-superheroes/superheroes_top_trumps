@@ -3,8 +3,7 @@ import { GameContext } from "./startGame"
 import { PowerstatsType} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
-import { CardStackPC } from "./card-stack-pc";
-import { CardStackPlayer } from "./card-stack-player";
+import { CardStack } from "./card-stack";
 import { MessageContainer } from "./message";
 import { NextTurn } from "./nextTurn";
 
@@ -96,9 +95,17 @@ export const GameContainer:React.FC = () =>{
     return (
 
         <main className="main-layout">
+
             <div className="card-container">
                 <TopCardPC/>
-                <CardStackPC/>
+
+                <CardStack 
+                cssClassType = "pc"
+                topCardImage = "/../src/assets/images/card3.png"
+                cardBackImage = "/../src/assets/images/card2.png"
+                showTopCardData = {true}
+                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+                stackLength = {currentPlayerCardIndex} /> 
             </div>
 
             <div className = "bubble-wrapper">
@@ -109,13 +116,20 @@ export const GameContainer:React.FC = () =>{
             <div className = "fix-to-bottom">
                 <NextTurn onClickFn={handleNextTurn}/>
             </div>
+
             <div className="card-container">
-                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
-                <CardStackPlayer 
+                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
+                onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
+
+                <CardStack 
                 cssClassType = "player"
+                topCardImage = "/../src/assets/images/card3.png"
+                cardBackImage = "/../src/assets/images/card2.png"
+                showTopCardData = {true}
                 gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
+
         </main>  
         
     )

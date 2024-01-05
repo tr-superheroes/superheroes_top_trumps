@@ -1,12 +1,11 @@
 export interface CardProps {
-    imageUrl: string;
-    cssClassType: string;
+    cardImage: string;
+    cssClass: string;
 }
 
-export const Card:React.FC<CardProps> = ({imageUrl, cssClassType}) => {
+export const Card:React.FC<CardProps> = ({cardImage, cssClass}) => {
 
-    const cssClass = `card card--${cssClassType}`;
     return (
-    <img className= {cssClass} src={imageUrl} />
+    <img className= {cssClass} src={cardImage} />
     );
 }
