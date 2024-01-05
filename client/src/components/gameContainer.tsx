@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { GameContext } from "./startGame"
+import { GameContext, StartGame } from "./startGame"
 import { PowerstatsType} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
@@ -24,6 +24,7 @@ export const GameContainer:React.FC = () =>{
     const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>();
     const [message,setMessage] = useState("Your turn");
     const [playedCard,setPlayedCard] = useState(false);
+    const [isGameDone,setIsGameDone] = useState(false);
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         console.log('chosen:'+e.target.id);
@@ -31,7 +32,6 @@ export const GameContainer:React.FC = () =>{
     }
 
     const handleNextTurn =() =>{
-        console.log('next turn');
         //setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
         //setPlayerTurn(true);
         setPlayedCard(false);
@@ -53,6 +53,9 @@ export const GameContainer:React.FC = () =>{
             }else{
                 setMessage("It's a draw!");
             }
+            setTimeout(()=>{
+                setIsGameDone(true);
+            },3000);
         }
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
@@ -96,8 +99,8 @@ export const GameContainer:React.FC = () =>{
     }
 
     return (
-
-        <main className="main-layout">
+        <>
+        {!isGameDone && <main className="main-layout">
 
             <div className="card-container">
                 <TopCardPC/>
@@ -132,8 +135,10 @@ export const GameContainer:React.FC = () =>{
                 gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
-
-        </main>  
-        
+            
+        </main>}
+        {isGameDone && <StartGame/>}
+  
+        </>
     )
 }
