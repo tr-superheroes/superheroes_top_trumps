@@ -26,8 +26,8 @@ export const GameContainer:React.FC = () =>{
     const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>('power');
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        console.log('chosen:'+e.target.value);
-        setChosenPowerStat(e.target.value as PowerstatsType);
+        console.log('chosen:'+e.target.id);
+        setChosenPowerStat(e.target.id as PowerstatsType);
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
