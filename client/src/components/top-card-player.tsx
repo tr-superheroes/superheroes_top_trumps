@@ -9,7 +9,7 @@ export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn}
   console.log('card here:'+card.name);
     return (
         <>
-        <div className="hero hero__pc">
+        <div className="hero hero--player">
           {//<img className="hero__img" src="/../src/assets/images/hero2.png" />
           }
           <img className="hero__img" src={card.image} />
