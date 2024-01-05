@@ -77,21 +77,15 @@ export const GameContainer:React.FC = () =>{
                 setScores(newScores);
                 setPlayerTurn(true);
                 setMessage("Player wins this round!");
-                
-                
             }else if(parseInt(playerStat)< parseInt(pcStat)){
-                
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
                 setMessage("PC wins this round!");
-                
             }else{
                 //scores equal
-                console.log('power equal');
                 setPlayerTurn(true);
                 setMessage("It's a draw!");
-                
             }
         }
 
