@@ -6,15 +6,20 @@ export const GameContext = createContext<FetchGameResponse>([]);
 export const StartGame:React.FC =() =>{
     const [isNewGame,setIsNewGame] = useState(true);
     const [response,setResponse] = useState<FetchGameResponse>([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setError] = useState(false);
     //const noOfCards = 7;
     const fetchCards = async() =>{
         try{
+            setIsLoading(true);
             const data = await fetch(FETCH_URL);
             const result = await data.json();
             setResponse(result.cards);
+            setIsLoading(false);
             console.log(result.cards.length);
         }catch(error){
             console.log(error);
+            setError(true);
         }
     }
     useEffect(() => {
@@ -29,10 +34,12 @@ export const StartGame:React.FC =() =>{
 
     return (
         <GameContext.Provider value={response}>
-        {isNewGame &&
+        {isError && (<p>Error Loading the game</p>)}
+        {!isError && isLoading &&  (<p>Loading</p>)}
+        {!isError && !isLoading && isNewGame &&
             <div className = "start">
                 <p>Click the button to start playing.</p>
-                <button onClick={handleClick}>Start Game</button>
+                <button onClick={handleClick} >Start Game</button>
             </div>
         }   
             
