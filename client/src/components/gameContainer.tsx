@@ -111,8 +111,7 @@ export const GameContainer:React.FC = () =>{
             </div>
             <div className="card-container">
                 <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
-                <CardStackPlayer/> {//pass the current player index+1 to be able to loop through
-                                    }
+                <CardStackPlayer gameRound = {playerCardsArray.length - currentPlayerCardIndex} stackLength = {currentPlayerCardIndex} /> 
             </div>
         </main>  
         
