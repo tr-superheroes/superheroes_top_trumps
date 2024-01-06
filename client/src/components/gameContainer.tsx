@@ -12,12 +12,12 @@ export const GameContainer:React.FC = () =>{
     //keep score in state
     
     const allCardsArray = useContext(GameContext);
-    const playerCardsArray = allCardsArray.slice(0,allCardsArray.length/2);
+    const playerCardsArray = allCardsArray.slice(0,allCardsArray.length/2); //slice does not include the last index,so no repeats
     const pcArray = allCardsArray.slice((allCardsArray.length/2),allCardsArray.length);
 
     //use it like a stack and pop from top to 0, always starting at highest index
-    const [currentPlayerCardIndex,setCurrentPlayerCardIndex] = useState(playerCardsArray.length-1);
-    const [currentPCCardIndex,setCurrentPCCardIndex] = useState(pcArray.length-1);
+    const [cardIndex,setCardIndex] = useState(playerCardsArray.length-1);
+   // const [cardIndex,setcardIndex] = useState(pcArray.length-1);
 
     const [scores,setScores] = useState({pc:0,player:0});
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
@@ -46,15 +46,12 @@ export const GameContainer:React.FC = () =>{
             setPCTurn(true);
         }
         //check if last turn
-        if(currentPlayerCardIndex > 0 && currentPCCardIndex >0){
+        if(cardIndex > 0 && cardIndex >0){
             //assign for next round trigger
-            const tmp = currentPlayerCardIndex-1;  
-            setCurrentPlayerCardIndex(tmp);
-            console.log('index after setting:'+currentPlayerCardIndex + " tmp:"+tmp);
-            setCurrentPCCardIndex(currentPCCardIndex -1);
+            const tmp = cardIndex-1;  
+            setCardIndex(tmp);
         }else{
             //set winner message
-            alert('reaching here:' + currentPlayerCardIndex+"pc index:"+currentPCCardIndex );
             if(scores.player > scores.pc){  
                 setMessage('Player wins this game');
             }else if(scores.player < scores.pc){
@@ -64,7 +61,7 @@ export const GameContainer:React.FC = () =>{
             }
             setTimeout(()=>{
                 setIsGameDone(true);
-            },3000);
+            },6000);
         }
         setShowPCCard(false);
     }
@@ -73,8 +70,8 @@ export const GameContainer:React.FC = () =>{
         //e.currentTarget.disabled = true;
         
         if(!playedCard && chosenPowerStat !== undefined){
-            const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat];
-            const pcStat = (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat];
+            const playerStat = (playerCardsArray[cardIndex].powerstats)[chosenPowerStat];
+            const pcStat = (pcArray[cardIndex].powerstats)[chosenPowerStat];
            
             setPlayedCard(true);
             
@@ -115,13 +112,9 @@ export const GameContainer:React.FC = () =>{
 
     
     const playTurnPC = async() => {
-        console.log("in playturn");
-        const highestPowerStat = findHighestStat(pcArray[currentPCCardIndex].powerstats) as PowerstatsType ;
-        const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[highestPowerStat];
-            const pcStat = (pcArray[currentPCCardIndex].powerstats)[highestPowerStat];
-            console.log("highest stat ", pcStat);
-            console.log('PCP player power:'+ playerStat);
-            console.log('PCP PC power:'+pcStat);
+        const highestPowerStat = findHighestStat(pcArray[cardIndex].powerstats) as PowerstatsType ;
+        const playerStat = (playerCardsArray[cardIndex].powerstats)[highestPowerStat];
+            const pcStat = (pcArray[cardIndex].powerstats)[highestPowerStat];
             await timeout(700);
             
             if( parseInt(pcStat)< parseInt(playerStat) ){
@@ -137,26 +130,21 @@ export const GameContainer:React.FC = () =>{
                 setMessage("PC wins this round!");
             }else{
                 //scores equal
-                console.log('power equal');
                 setPlayerTurn(true);
                 setMessage("It's a draw!");
             }
         
-        console.log("PCP handle play end");
         setShowPCCard(true);
         setPCTurn(false);
-
-        
     }
 
     return (
         <>
-        {alert(currentPlayerCardIndex + ','+ (playerCardsArray[currentPlayerCardIndex]).name)}
         {!isGameDone && <main className="main-layout">
 
             <div className="card-container">
-            <TopCardPC card={pcArray[currentPCCardIndex]} turn={PCTurn} 
-            gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+            <TopCardPC card={pcArray[cardIndex]} turn={PCTurn} 
+            gameRound = {playerCardsArray.length - cardIndex} 
             show={showPCCard} playTurnPC={playTurnPC} />
 
                 <CardStack 
@@ -164,7 +152,7 @@ export const GameContainer:React.FC = () =>{
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {showPCCard}
-                stackLength = {currentPlayerCardIndex} /> 
+                stackLength = {cardIndex} /> 
             </div>
 
             <div className = "bubble-wrapper">
@@ -178,16 +166,16 @@ export const GameContainer:React.FC = () =>{
             
             <div className="card-container">
             
-                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
+                <TopCardPlayer card={playerCardsArray[cardIndex]} 
                 onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex} showTime = {showPCCard}  />
+                gameRound = {playerCardsArray.length - cardIndex} showTime = {showPCCard}  />
 
                 <CardStack 
                 cssClassType = "player"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {true}
-                stackLength = {currentPlayerCardIndex} /> 
+                stackLength = {cardIndex} /> 
             </div>
             
         </main>}
