@@ -50,49 +50,139 @@ h2, h3 {
   bottom: 0;
 }
 
-.shield-wrapper {
-  top: 0;
-  position: fixed;
-  margin: 2% auto;
-  width: 40%;
-  margin: auto 33% auto 29%;
-  background-size: contain;
-  background-image: url("../images/shield.png");
-  height: 50vw;
-  background-repeat: no-repeat;
-}
-
-.shield-text {
-  position: absolute;
-  top: 0;
-  margin: 30%;
-  font-family: "Bangers";
-  font-size: 4rem;
-  color: #E91514;
-}
-
-.bubble-wrapper {
+.shield {
   top: 0;
   position: fixed;
   width: 30%;
   margin: auto 35% auto 35%;
   background-size: contain;
-  background-image: url("../images/blue-bubble.png");
+  background-image: url("../images/shield.png");
   height: 50vw;
   background-repeat: no-repeat;
+  
+    &__text {
+      position: absolute;
+      top: 0;
+      margin: 30%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+
+      &--main {
+        font-size: 3vw;
+        color: #6e1919;
+        font-family: "Bangers";
+        margin: 0;
+        padding: 0;
+      }
+      &--info {
+        font-size: 3vw;
+        color: #c10404;
+        font-family: "Bangers";
+        margin: 0;
+        padding: 0;
+      }
+    }
 }
 
-.bubble-text {
-  position: absolute;
+.splash {
   top: 0;
-  margin: 30%;
-  font-family: "Bangers";
-  font-size: 1.4rem;
+  position: relative;
+  width: 100%;
+  margin: auto 0 auto 0;
+  background-size: contain;
+  background-image: url("../images/blue-bubble.png");
+  height: 100vw;
+  background-repeat: no-repeat;
+  z-index: 3000;
+
+  @media (min-width: 600px) {
+    width: 30%;
+    margin: auto 35% auto 35%;
+    position: fixed;
+  }
+
+  &__text {
+        position: absolute;
+        top: 0;
+        margin: 26% 40% 30% 25%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        @media (min-width: 600px) {
+          margin: 29% 40% 30% 25%;
+        }
+  
+        &--main {
+          font-size: 6vw;
+          color: #6e1919;
+          font-family: "Bangers";
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          width: 30vw;
+
+          @media (min-width: 600px) {
+            width: 10vw;
+            font-size: 1.5vw;
+          }
+        }
+  }
 }
 
-.fix-to-bottom {
-  position: fixed;
+
+
+.button {
+  position: relative;
   bottom: 0;
+  margin-left: 10vw;
+  z-index: 3000;
+  box-sizing: border-box; 
+  &:hover {
+    background-color:  #c10404;
+  }
+
+  &__game {
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: "Bangers";
+    margin: 3rem;
+    width: 80vw;
+
+    &--start {
+      background-color: red;
+      border: black solid 1px;
+      color: white;
+      box-shadow: 2px 2px black, 5px 5px orange;
+      @media (min-width: 600px) {
+        width: 20vw;
+        margin: 5vh 40vw;
+      }
+    }
+    &--play{
+      background-color: red;
+      color: white;
+      border: black solid 2px;
+      box-shadow: 2px 2px black, 5px 5px orange;
+      @media (min-width: 600px) {
+        width: 20vw;
+        left: 37vw;
+        position: fixed;
+      }  
+    }
+  }
 }
+
+
 
   
