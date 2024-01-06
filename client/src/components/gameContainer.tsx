@@ -46,10 +46,11 @@ export const GameContainer:React.FC = () =>{
             setPCTurn(true);
         }
         //check if last turn
-        if(cardIndex > 0 && cardIndex >0){
+        if(cardIndex > 0){
             //assign for next round trigger
             const tmp = cardIndex-1;  
             setCardIndex(tmp);
+            setShowPCCard(false);
         }else{
             //set winner message
             if(scores.player > scores.pc){  
@@ -63,7 +64,7 @@ export const GameContainer:React.FC = () =>{
                 setIsGameDone(true);
             },6000);
         }
-        setShowPCCard(false);
+        
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
@@ -117,21 +118,23 @@ export const GameContainer:React.FC = () =>{
             const pcStat = (pcArray[cardIndex].powerstats)[highestPowerStat];
             await timeout(700);
             
-            if( parseInt(pcStat)< parseInt(playerStat) ){
-                //set score
-                const newScores = {...scores,player:scores.player+1};
-                setScores(newScores);
-                setPlayerTurn(true);
-                setMessage(`Player wins this round with ${highestPowerStat} ${parseInt(playerStat) }!`);
-            }else if(parseInt(playerStat)< parseInt(pcStat)){
-                const newScores = {...scores,pc:scores.pc+1};
-                setScores(newScores);
-                setPlayerTurn(false);
-                setMessage(`PC wins this round with ${highestPowerStat} ${parseInt(pcStat) }!`);
-            }else{
-                //scores equal
-                setPlayerTurn(true);
-                setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
+            if(!isGameDone){
+                if( parseInt(pcStat)< parseInt(playerStat) ){
+                    //set score
+                    const newScores = {...scores,player:scores.player+1};
+                    setScores(newScores);
+                    setPlayerTurn(true);
+                    setMessage(`Player wins this round with ${highestPowerStat} ${parseInt(playerStat) }!`);
+                }else if(parseInt(playerStat)< parseInt(pcStat)){
+                    const newScores = {...scores,pc:scores.pc+1};
+                    setScores(newScores);
+                    setPlayerTurn(false);
+                    setMessage(`PC wins this round with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                }else{
+                    //scores equal
+                    setPlayerTurn(true);
+                    setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                }
             }
         
         setShowPCCard(true);
