@@ -18,6 +18,8 @@ export const GameContainer:React.FC = () =>{
     //use it like a stack and pop from top to 0, always starting at highest index
     const [currentPlayerCardIndex,setCurrentPlayerCardIndex] = useState(playerCardsArray.length-1);
     const [currentPCCardIndex,setCurrentPCCardIndex] = useState(pcArray.length-1);
+    console.log("PC arr length",pcArray.length-1);
+    console.log("Player arr length",playerCardsArray.length-1);
 
     const [scores,setScores] = useState({pc:0,player:0});
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
@@ -182,7 +184,7 @@ export const GameContainer:React.FC = () =>{
             <div className="card-container">
                 <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
                 onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex}  />
+                gameRound = {playerCardsArray.length - currentPlayerCardIndex} showTime = {showPCCard}  />
 
                 <CardStack 
                 cssClassType = "player"
