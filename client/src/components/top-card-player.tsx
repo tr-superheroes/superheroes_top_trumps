@@ -1,13 +1,15 @@
 import { TrumpCard } from "../types/game.types";
 import { PowerstatsForm} from "./powerstats-form";
+import  {PowerstatsList} from "./powerstats-list"
 
 interface CardProps{
   card:TrumpCard;
   onClickFn:() =>void;
   optionChangeFn:(e:React.ChangeEvent<HTMLInputElement>)=>void;
   gameRound: number;
+  showTime:boolean;
 }
-export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn, gameRound}) =>{
+export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn, gameRound, showTime}) =>{
   const divClasses = `hero hero--player hero${gameRound.toString()}`;
   console.log('card here:'+card.name);
     return (
@@ -18,7 +20,9 @@ export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn,
           
           <h2 className="hero__header">{card.name}</h2>
 
-          <PowerstatsForm onClickFn={onClickFn} optionChangeFn={optionChangeFn} powerstats={card.powerstats}/>
+          {showTime?<PowerstatsList powerstats={card.powerstats} />:
+          <PowerstatsForm onClickFn={onClickFn} optionChangeFn={optionChangeFn} powerstats={card.powerstats}/>}
+
           
         </div>
         </>

@@ -12,12 +12,12 @@ export const GameContainer:React.FC = () =>{
     //keep score in state
     
     const allCardsArray = useContext(GameContext);
-    const playerCardsArray = allCardsArray.slice(0,allCardsArray.length/2);
-    const pcArray = allCardsArray.slice(allCardsArray.length/2+1,allCardsArray.length);
+    const playerCardsArray = allCardsArray.slice(0,allCardsArray.length/2); //slice does not include the last index,so no repeats
+    const pcArray = allCardsArray.slice((allCardsArray.length/2),allCardsArray.length);
 
     //use it like a stack and pop from top to 0, always starting at highest index
-    const [currentPlayerCardIndex,setCurrentPlayerCardIndex] = useState(playerCardsArray.length-1);
-    const [currentPCCardIndex,setCurrentPCCardIndex] = useState(pcArray.length-1);
+    const [cardIndex,setCardIndex] = useState(playerCardsArray.length-1);
+   // const [cardIndex,setcardIndex] = useState(pcArray.length-1);
 
     const [scores,setScores] = useState({pc:0,player:0});
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
@@ -29,31 +29,29 @@ export const GameContainer:React.FC = () =>{
     const [isGameDone,setIsGameDone] = useState(false);
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        console.log('chosen:'+e.target.id);
         setChosenPowerStat(e.target.id as PowerstatsType);
     }
-
+    
     const handleNextTurn =() =>{
         //setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
         //setPlayerTurn(true);
-        if (playerTurn) {
-            setPlayedCard(false);
-            setMessage('Your turn');
-            setPCTurn(false);
-        }
-        else {
-            setMessage('PC turn');
-            setPCTurn(true);
-        }
-        console.log("score player:"+scores.player);
-        console.log("score pc:"+scores.pc);
-        //check if last turn
-        if(currentPlayerCardIndex-1 >= 0 && currentPCCardIndex-1 >=0){
-            //assign for next round trigger
-            console.log('index:'+currentPlayerCardIndex);
             
-            setCurrentPlayerCardIndex(currentPlayerCardIndex-1);
-            setCurrentPCCardIndex(currentPCCardIndex -1);
+        
+        //check if last turn
+        if(cardIndex > 0){
+            if (playerTurn) {
+                setPlayedCard(false);
+                setMessage('Your turn');
+                setPCTurn(false);
+            }
+            else {
+                setMessage('PC turn');
+                setPCTurn(true);
+            }
+            //assign for next round trigger
+            const tmp = cardIndex-1;  
+            setCardIndex(tmp);
+            setShowPCCard(false);
         }else{
             //set winner message
             if(scores.player > scores.pc){  
@@ -65,38 +63,35 @@ export const GameContainer:React.FC = () =>{
             }
             setTimeout(()=>{
                 setIsGameDone(true);
-            },3000);
+            },6000);
         }
-        setShowPCCard(false);
+        
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
         //e.currentTarget.disabled = true;
         
         if(!playedCard && chosenPowerStat !== undefined){
-            const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat];
-            const pcStat = (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat];
-            console.log('player power:'+ playerStat);
-            console.log('PC power:'+pcStat);
+            const playerStat = (playerCardsArray[cardIndex].powerstats)[chosenPowerStat];
+            const pcStat = (pcArray[cardIndex].powerstats)[chosenPowerStat];
+           
             setPlayedCard(true);
-            //flip PC top card
-
             
             if( parseInt(playerStat)> parseInt(pcStat) ){
                 //set score
                 const newScores = {...scores,player:scores.player+1};
                 setScores(newScores);
                 setPlayerTurn(true);
-                setMessage("Player wins this round!");
+                setMessage(`Player wins this round with ${chosenPowerStat} ${playerStat}!`);
             }else if(parseInt(playerStat)< parseInt(pcStat)){
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
-                setMessage("PC wins this round!");
+                setMessage(`PC wins this round with ${chosenPowerStat} ${pcStat}!`);
             }else{
                 //scores equal
                 setPlayerTurn(true);
-                setMessage("It's a draw!");
+                setMessage(`It's a draw with ${chosenPowerStat} ${playerStat}!`);
             }
               setShowPCCard(true);
         }
@@ -119,38 +114,33 @@ export const GameContainer:React.FC = () =>{
 
     
     const playTurnPC = async() => {
-        console.log("in playturn");
-        const highestPowerStat = findHighestStat(pcArray[currentPCCardIndex].powerstats) as PowerstatsType ;
-        const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[highestPowerStat];
-            const pcStat = (pcArray[currentPCCardIndex].powerstats)[highestPowerStat];
-            console.log("highest stat ", pcStat);
-            console.log('PCP player power:'+ playerStat);
-            console.log('PCP PC power:'+pcStat);
+        const highestPowerStat = findHighestStat(pcArray[cardIndex].powerstats) as PowerstatsType ;
+        const playerStat = (playerCardsArray[cardIndex].powerstats)[highestPowerStat];
+            const pcStat = (pcArray[cardIndex].powerstats)[highestPowerStat];
             await timeout(700);
             
-            if( parseInt(pcStat)< parseInt(playerStat) ){
-                //set score
-                const newScores = {...scores,player:scores.player+1};
-                setScores(newScores);
-                setPlayerTurn(true);
-                setMessage("Player wins this round!");
-            }else if(parseInt(playerStat)< parseInt(pcStat)){
-                const newScores = {...scores,pc:scores.pc+1};
-                setScores(newScores);
-                setPlayerTurn(false);
-                setMessage("PC wins this round!");
-            }else{
-                //scores equal
-                console.log('power equal');
-                setPlayerTurn(true);
-                setMessage("It's a draw!");
+            if(!isGameDone){
+                if( parseInt(pcStat)< parseInt(playerStat) ){
+                    //set score
+                    const newScores = {...scores,player:scores.player+1};
+                    setScores(newScores);
+                    setPlayerTurn(true);
+                    setMessage(`Player wins this round with ${highestPowerStat} ${parseInt(playerStat) }!`);
+                }else if(parseInt(playerStat)< parseInt(pcStat)){
+                    const newScores = {...scores,pc:scores.pc+1};
+                    setScores(newScores);
+                    setPlayerTurn(false);
+                    setMessage(`PC wins this round with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                }else{
+                    //scores equal
+                    setPlayerTurn(true);
+                    setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                }
+                setShowPCCard(true);
+                setPCTurn(false);
             }
         
-        console.log("PCP handle play end");
-        setShowPCCard(true);
-        setPCTurn(false);
 
-        
     }
 
     return (
@@ -158,8 +148,8 @@ export const GameContainer:React.FC = () =>{
         {!isGameDone && <main className="main-layout">
 
             <div className="card-container">
-            <TopCardPC card={pcArray[currentPCCardIndex]} turn={PCTurn} 
-            gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+            <TopCardPC card={pcArray[cardIndex]} turn={PCTurn} 
+            gameRound = {playerCardsArray.length - cardIndex} 
             show={showPCCard} playTurnPC={playTurnPC} />
 
                 <CardStack 
@@ -167,7 +157,7 @@ export const GameContainer:React.FC = () =>{
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {showPCCard}
-                stackLength = {currentPlayerCardIndex} /> 
+                stackLength = {cardIndex} /> 
             </div>
 
                 <MessageContainer message={message} imgUrl=""></MessageContainer>
@@ -175,18 +165,19 @@ export const GameContainer:React.FC = () =>{
             <div className = "button-wrapper">
                 <NextTurn onClickFn={handleNextTurn}/>
             </div>
-
+            
             <div className="card-container">
-                <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
+            
+                <TopCardPlayer card={playerCardsArray[cardIndex]} 
                 onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex}  />
+                gameRound = {playerCardsArray.length - cardIndex} showTime = {showPCCard || PCTurn}  />
 
                 <CardStack 
                 cssClassType = "player"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {true}
-                stackLength = {currentPlayerCardIndex} /> 
+                stackLength = {cardIndex} /> 
             </div>
             
         </main>}
