@@ -172,7 +172,7 @@ export const GameContainer:React.FC = () =>{
 
                 <MessageContainer message={message} imgUrl=""></MessageContainer>
 
-            <div className = "fix-to-bottom">
+            <div className = "button-wrapper">
                 <NextTurn onClickFn={handleNextTurn}/>
             </div>
 

@@ -51,8 +51,7 @@ export const StartGame:React.FC =() =>{
         {!isError && !isLoading && isNewGame &&
         <>
             <div className = "start">
-                <p>Click the button to start playing.</p>
-                <button onClick={handleClick} >Start Game</button>
+                <button className = "button button__game button__game--start" onClick={handleClick} >Start Game</button>
             </div>
         </>
         }   
