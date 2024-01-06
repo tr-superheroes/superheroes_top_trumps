@@ -163,7 +163,7 @@ export const GameContainer:React.FC = () =>{
                 cssClassType = "pc"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
-                showTopCardData = {false}
+                showTopCardData = {showPCCard}
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
 
@@ -180,7 +180,7 @@ export const GameContainer:React.FC = () =>{
             
                 <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
                 onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex}  />
+                gameRound = {playerCardsArray.length - currentPlayerCardIndex} showTime = {showPCCard}  />
 
                 <CardStack 
                 cssClassType = "player"
