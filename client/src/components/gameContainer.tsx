@@ -80,16 +80,16 @@ export const GameContainer:React.FC = () =>{
                 const newScores = {...scores,player:scores.player+1};
                 setScores(newScores);
                 setPlayerTurn(true);
-                setMessage("Player wins this round!");
+                setMessage(`Player wins this round with ${chosenPowerStat} ${playerStat}!`);
             }else if(parseInt(playerStat)< parseInt(pcStat)){
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
-                setMessage("PC wins this round!");
+                setMessage(`PC wins this round with ${chosenPowerStat} ${pcStat}!`);
             }else{
                 //scores equal
                 setPlayerTurn(true);
-                setMessage("It's a draw!");
+                setMessage(`It's a draw with ${chosenPowerStat} ${playerStat}!`);
             }
               setShowPCCard(true);
         }
@@ -122,16 +122,16 @@ export const GameContainer:React.FC = () =>{
                 const newScores = {...scores,player:scores.player+1};
                 setScores(newScores);
                 setPlayerTurn(true);
-                setMessage("Player wins this round!");
+                setMessage(`Player wins this round with ${highestPowerStat} ${parseInt(playerStat) }!`);
             }else if(parseInt(playerStat)< parseInt(pcStat)){
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
-                setMessage("PC wins this round!");
+                setMessage(`PC wins this round with ${highestPowerStat} ${parseInt(pcStat) }!`);
             }else{
                 //scores equal
                 setPlayerTurn(true);
-                setMessage("It's a draw!");
+                setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
             }
         
         setShowPCCard(true);
