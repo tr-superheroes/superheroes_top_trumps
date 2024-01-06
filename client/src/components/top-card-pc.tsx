@@ -1,20 +1,36 @@
 import { PowerstatsList } from "./powerstats-list";
+import { TrumpCard } from "../types/game.types";
 
-interface PCCardProps{
+interface TopCardPCProps {
+  card: TrumpCard;
+  turn: boolean;
+  show: boolean;
+  playTurnPC: () => void;
   gameRound: number;
 }
-
-export const TopCardPC:React.FC<PCCardProps> =({gameRound}) =>{
+export const TopCardPC: React.FC<TopCardPCProps> = ({
+  card,
+  turn,
+  show,
+  playTurnPC,
+  gameRound
+}) => {
   const divClasses = `hero hero--pc hero${gameRound.toString()}`;
-    return (
-        <>
-        <div className= {divClasses}>
-          <img className="hero__img" src="/../src/assets/images/hero1.png" />
-          <h2 className="hero__header">Abe Sapien</h2>
-          
-          <PowerstatsList/>
+  console.log("PC card", card.name);
+  console.log("PC turn", turn);
+  if (turn) {
+    playTurnPC();
+  }
 
+  return (
+    <>
+      {show && (
+         <div className= {divClasses}>
+          <img className="hero__img" src={card.image} />
+          <h2 className="hero__header">{card.name}</h2>
+          <PowerstatsList powerstats={card.powerstats} />
         </div>
-        </>
-    )
-}
+      )}
+    </>
+  );
+};

@@ -1,16 +1,19 @@
-export const PowerstatsList:React.FC =() =>{
+import { PowerstatsObj, PowerstatsType } from "../types/game.types";
+interface PowerstatsListProps {
+    powerstats:PowerstatsObj
+}
+export const PowerstatsList:React.FC<PowerstatsListProps> =({powerstats}) =>{
     return (
         <>
         <h3>Powerstats</h3>
         <div className="hero__wrapper">
             <ul className="hero__powerstats">
-            <li>Intelligence: 88</li>
-            <li>Strength: 28</li>
-            <li>Speed: 35</li>
-            <li>Durability: 65</li>
-            <li>Power: 100</li>
-            <li>Combat: 85</li>
-            </ul>
+                {
+                    (Object.keys(powerstats) as PowerstatsType[]).map((stat, index)=> (
+                        <li key={index}>{`${stat}: ${powerstats[stat]}`}</li>
+                    ))
+                }
+                </ul>
         </div>
         </>
     )
