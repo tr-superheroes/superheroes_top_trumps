@@ -4,12 +4,15 @@ interface MessageProps{
 }
 export const MessageContainer:React.FC<MessageProps> =({message,imgUrl}) =>{
     return (
-        <div id="message">
-            <p>{message}</p>
+        <div className = "splash">
+            <div className = "splash__text">
+            <p className ="splash__text--main">{message}</p>
+
             {
              imgUrl && 
                 <img src={imgUrl} alt="Whose turn image"/>
             }
+            </div>
         </div>
     )
 }

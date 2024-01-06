@@ -170,11 +170,8 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
 
-            <div className = "bubble-wrapper">
-            <div className = "bubble-text">
                 <MessageContainer message={message} imgUrl=""></MessageContainer>
-                </div>
-            </div>
+
             <div className = "fix-to-bottom">
                 <NextTurn onClickFn={handleNextTurn}/>
             </div>
