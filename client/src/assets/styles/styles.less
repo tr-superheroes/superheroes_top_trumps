@@ -50,26 +50,44 @@ h2, h3 {
   bottom: 0;
 }
 
-.shield-wrapper {
+.shield {
   top: 0;
   position: fixed;
-  margin: 2% auto;
   width: 40%;
   margin: auto 33% auto 29%;
   background-size: contain;
   background-image: url("../images/shield.png");
-  height: 50vw;
+  min-height: 100vh;
   background-repeat: no-repeat;
+  
+    &__text {
+      position: absolute;
+      top: 0;
+      margin: 30%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+
+      &--main {
+        font-size: 4vw;
+        color: #6e1919;
+        font-family: "Bangers";
+        margin: 0;
+        padding: 0;
+      }
+      &--info {
+        font-size: 3vw;
+        color: #c10404;
+        font-family: "Bangers";
+        margin: 0;
+        padding: 0;
+      }
+    }
 }
 
-.shield-text {
-  position: absolute;
-  top: 0;
-  margin: 30%;
-  font-family: "Bangers";
-  font-size: 4rem;
-  color: #E91514;
-}
 
 .bubble-wrapper {
   top: 0;
