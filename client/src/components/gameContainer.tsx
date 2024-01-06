@@ -36,17 +36,18 @@ export const GameContainer:React.FC = () =>{
         //setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
         //setPlayerTurn(true);
             
-        if (playerTurn) {
-            setPlayedCard(false);
-            setMessage('Your turn');
-            setPCTurn(false);
-        }
-        else {
-            setMessage('PC turn');
-            setPCTurn(true);
-        }
+        
         //check if last turn
         if(cardIndex > 0){
+            if (playerTurn) {
+                setPlayedCard(false);
+                setMessage('Your turn');
+                setPCTurn(false);
+            }
+            else {
+                setMessage('PC turn');
+                setPCTurn(true);
+            }
             //assign for next round trigger
             const tmp = cardIndex-1;  
             setCardIndex(tmp);
@@ -135,10 +136,11 @@ export const GameContainer:React.FC = () =>{
                     setPlayerTurn(true);
                     setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
                 }
+                setShowPCCard(true);
+                setPCTurn(false);
             }
         
-        setShowPCCard(true);
-        setPCTurn(false);
+
     }
 
     return (
@@ -171,7 +173,7 @@ export const GameContainer:React.FC = () =>{
             
                 <TopCardPlayer card={playerCardsArray[cardIndex]} 
                 onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
-                gameRound = {playerCardsArray.length - cardIndex} showTime = {showPCCard}  />
+                gameRound = {playerCardsArray.length - cardIndex} showTime = {showPCCard || PCTurn}  />
 
                 <CardStack 
                 cssClassType = "player"
