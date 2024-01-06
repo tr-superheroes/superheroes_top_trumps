@@ -34,3 +34,11 @@ export type PowerstatsObj = {
   power: string;
   combat: string;
 };
+export const YOUR_TURN = "Your turn";
+export const MY_TURN = "My turn";
+export const DRAW = "It's a draw";
+export const PLAYER_WIN = "You win this game!";
+export const PC_WIN = "I win this game!";
+export const PLAYER_ROUND_WIN = "You win this round";
+export const PC_ROUND_WIN = "I win this round";
+export const PLAY_CARD_MSG = "Please play your card first.";
