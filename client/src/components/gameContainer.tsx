@@ -158,14 +158,15 @@ export const GameContainer:React.FC = () =>{
         {!isGameDone && <main className="main-layout">
 
             <div className="card-container">
-            <TopCardPC card={pcArray[currentPCCardIndex]} turn={PCTurn} show={showPCCard} playTurnPC={playTurnPC} />
+            <TopCardPC card={pcArray[currentPCCardIndex]} turn={PCTurn} 
+            gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+            show={showPCCard} playTurnPC={playTurnPC} />
 
                 <CardStack 
                 cssClassType = "pc"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
-                showTopCardData = {true}
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
+                showTopCardData = {false}
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
 
@@ -180,14 +181,14 @@ export const GameContainer:React.FC = () =>{
 
             <div className="card-container">
                 <TopCardPlayer card={playerCardsArray[currentPlayerCardIndex]} 
-                onClickFn={handlePlay} optionChangeFn ={handleOptionChange} />
+                onClickFn={handlePlay} optionChangeFn ={handleOptionChange} 
+                gameRound = {playerCardsArray.length - currentPlayerCardIndex}  />
 
                 <CardStack 
                 cssClassType = "player"
                 topCardImage = "/../src/assets/images/card3.png"
                 cardBackImage = "/../src/assets/images/card2.png"
                 showTopCardData = {true}
-                gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
             

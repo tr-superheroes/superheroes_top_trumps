@@ -6,13 +6,16 @@ interface TopCardPCProps {
   turn: boolean;
   show: boolean;
   playTurnPC: () => void;
+  gameRound: number;
 }
 export const TopCardPC: React.FC<TopCardPCProps> = ({
   card,
   turn,
   show,
   playTurnPC,
+  gameRound
 }) => {
+  const divClasses = `hero hero--pc hero${gameRound.toString()}`;
   console.log("PC card", card.name);
   console.log("PC turn", turn);
   if (turn) {
@@ -22,7 +25,7 @@ export const TopCardPC: React.FC<TopCardPCProps> = ({
   return (
     <>
       {show && (
-        <div className="hero hero--pc">
+         <div className= {divClasses}>
           <img className="hero__img" src={card.image} />
           <h2 className="hero__header">{card.name}</h2>
           <PowerstatsList powerstats={card.powerstats} />
