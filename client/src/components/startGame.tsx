@@ -1,6 +1,7 @@
 import { useState,useEffect, createContext } from "react"
 import { FETCH_URL, FetchGameResponse } from "../types/game.types";
 import { GameContainer } from "./gameContainer";
+import ShowLoading from "./show-loading";
 
 export const GameContext = createContext<FetchGameResponse>([]);
 export const StartGame:React.FC =() =>{
@@ -47,7 +48,9 @@ export const StartGame:React.FC =() =>{
             </div>
         </>}
         {isError && (<p>Error Loading the game</p>)}
-        {!isError && isLoading &&  (<p>Loading</p>)}
+        {!isError && isLoading &&  
+        <ShowLoading/>
+        }
         {!isError && !isLoading && isNewGame &&
         <>
             <div className = "start">

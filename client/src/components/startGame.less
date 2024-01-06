@@ -1,0 +1,29 @@
+.loading {
+    position: relative;
+    margin-left: 1%;
+    opacity: 0;
+    animation: move-emojis 1s forwards infinite;
+    text-align: left;
+    float: left;
+    font-family: "Bangers";
+    font-size: 1rem;
+    @media (min-width: 600px) {
+        font-size: 2rem;
+    }
+}
+
+@keyframes move-emojis {
+0% {
+    bottom: -0.5em;
+    opacity: 1;
+}
+
+  40% {
+    bottom: 0.5em;
+  }
+
+  60% {
+    bottom: 0;
+    opacity: 1;
+  }
+}

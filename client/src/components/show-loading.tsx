@@ -1,7 +1,7 @@
 import { CSSProperties } from "react"
 
 const ShowLoading: React.FC = () => {
-  const loadingArray = ["🤪", "🗣", "🥗", "😈", ];
+  const loadingArray = [ "🤖", "🦸", "Loading", "🦇", "🦸‍♂️"];
 
 return (
     <h3 aria-label="loading-misdemeanours" role="status">
