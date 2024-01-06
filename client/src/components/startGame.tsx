@@ -36,9 +36,13 @@ export const StartGame:React.FC =() =>{
         <GameContext.Provider value={response}>
         {isNewGame &&
         <>
-            <div className = "shield-wrapper">
-            {isLoading &&
-            <div className = "shield-text">Superhero Top Trumps</div>
+            <div className = "shield">
+            {
+            <div className = "shield__text">
+                <p className ="shield__text--main" >Superhero</p>
+                <p className ="shield__text--info">Top</p>
+                <p className ="shield__text--info">Trumps</p>
+            </div>
             }
             </div>
         </>}
@@ -47,8 +51,7 @@ export const StartGame:React.FC =() =>{
         {!isError && !isLoading && isNewGame &&
         <>
             <div className = "start">
-                <p>Click the button to start playing.</p>
-                <button onClick={handleClick} >Start Game</button>
+                <button className = "button button__game button__game--start" onClick={handleClick} >Start Game</button>
             </div>
         </>
         }   
