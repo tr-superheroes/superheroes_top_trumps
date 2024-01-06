@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { GameContext } from "./startGame"
+import { GameContext, StartGame } from "./startGame"
 import { PowerstatsType} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
@@ -23,6 +23,8 @@ export const GameContainer:React.FC = () =>{
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
     const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>();
     const [message,setMessage] = useState("Your turn");
+    const [playedCard,setPlayedCard] = useState(false);
+    const [isGameDone,setIsGameDone] = useState(false);
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         console.log('chosen:'+e.target.id);
@@ -30,9 +32,9 @@ export const GameContainer:React.FC = () =>{
     }
 
     const handleNextTurn =() =>{
-        console.log('next turn');
-        setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
+        //setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
         //setPlayerTurn(true);
+        setPlayedCard(false);
         setMessage('Your turn');
         console.log("score player:"+scores.player);
         //check if last turn
@@ -51,17 +53,21 @@ export const GameContainer:React.FC = () =>{
             }else{
                 setMessage("It's a draw!");
             }
+            setTimeout(()=>{
+                setIsGameDone(true);
+            },3000);
         }
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
         //e.currentTarget.disabled = true;
         
-        if(chosenPowerStat !== undefined){
+        if(!playedCard && chosenPowerStat !== undefined){
             const playerStat = (playerCardsArray[currentPlayerCardIndex].powerstats)[chosenPowerStat];
             const pcStat = (pcArray[currentPCCardIndex].powerstats)[chosenPowerStat];
             console.log('player power:'+ playerStat);
             console.log('PC power:'+pcStat);
+            setPlayedCard(true);
             //flip PC top card
 
             
@@ -71,21 +77,15 @@ export const GameContainer:React.FC = () =>{
                 setScores(newScores);
                 setPlayerTurn(true);
                 setMessage("Player wins this round!");
-                
-                
             }else if(parseInt(playerStat)< parseInt(pcStat)){
-                
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
                 setMessage("PC wins this round!");
-                
             }else{
                 //scores equal
-                console.log('power equal');
                 setPlayerTurn(true);
                 setMessage("It's a draw!");
-                
             }
         }
 
@@ -93,8 +93,8 @@ export const GameContainer:React.FC = () =>{
     }
 
     return (
-
-        <main className="main-layout">
+        <>
+        {!isGameDone && <main className="main-layout">
 
             <div className="card-container">
                 <TopCardPC/>
@@ -129,8 +129,10 @@ export const GameContainer:React.FC = () =>{
                 gameRound = {playerCardsArray.length - currentPlayerCardIndex} 
                 stackLength = {currentPlayerCardIndex} /> 
             </div>
-
-        </main>  
-        
+            
+        </main>}
+        {isGameDone && <StartGame/>}
+  
+        </>
     )
 }
