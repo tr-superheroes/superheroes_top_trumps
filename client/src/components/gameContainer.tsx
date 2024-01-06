@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { GameContext, StartGame } from "./startGame"
-import { PowerstatsObj, PowerstatsType} from "../types/game.types";
+import { DRAW, MY_TURN, PC_ROUND_WIN, PC_WIN, PLAYER_ROUND_WIN, PLAYER_WIN, PLAY_CARD_MSG, PowerstatsObj, PowerstatsType, YOUR_TURN} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
 import { CardStack } from "./card-stack";
@@ -17,12 +17,10 @@ export const GameContainer:React.FC = () =>{
 
     //use it like a stack and pop from top to 0, always starting at highest index
     const [cardIndex,setCardIndex] = useState(playerCardsArray.length-1);
-   // const [cardIndex,setcardIndex] = useState(pcArray.length-1);
-
     const [scores,setScores] = useState({pc:0,player:0});
     const [playerTurn,setPlayerTurn] = useState(true);//used by player to enable/disable play button
     const [chosenPowerStat,setChosenPowerStat] = useState<PowerstatsType|undefined>();
-    const [message,setMessage] = useState("Your turn");
+    const [message,setMessage] = useState(YOUR_TURN);
     const [showPCCard,setShowPCCard] = useState(false);
     const [PCTurn, setPCTurn] = useState(false);
     const [playedCard,setPlayedCard] = useState(false);
@@ -33,37 +31,39 @@ export const GameContainer:React.FC = () =>{
     }
     
     const handleNextTurn =() =>{
-        //setChosenPowerStat(undefined); //doesn;t unset the chosen radio button
-        //setPlayerTurn(true);
-            
-        
         //check if last turn
-        if(cardIndex > 0){
-            if (playerTurn) {
-                setPlayedCard(false);
-                setMessage('Your turn');
-                setPCTurn(false);
-            }
-            else {
-                setMessage('PC turn');
-                setPCTurn(true);
-            }
-            //assign for next round trigger
-            const tmp = cardIndex-1;  
-            setCardIndex(tmp);
-            setShowPCCard(false);
-        }else{
-            //set winner message
-            if(scores.player > scores.pc){  
-                setMessage('Player wins this game');
-            }else if(scores.player < scores.pc){
-                setMessage('PC wins this game');
+        if(playedCard){
+
+        
+            if(cardIndex > 0){
+                if (playerTurn) {
+                    setPlayedCard(false);
+                    setMessage(YOUR_TURN);
+                    setPCTurn(false);
+                }
+                else {
+                    setMessage(MY_TURN);
+                    setPCTurn(true);
+                }
+                //assign for next round trigger
+                const tmp = cardIndex-1;  
+                setCardIndex(tmp);
+                setShowPCCard(false);
             }else{
-                setMessage("It's a draw!");
+                //set winner message
+                if(scores.player > scores.pc){  
+                    setMessage(PLAYER_WIN);
+                }else if(scores.player < scores.pc){
+                    setMessage(PC_WIN);
+                }else{
+                    setMessage(DRAW);
+                }
+                setTimeout(()=>{
+                    setIsGameDone(true);
+                },3000);
             }
-            setTimeout(()=>{
-                setIsGameDone(true);
-            },6000);
+        }else{
+            setMessage(PLAY_CARD_MSG);
         }
         
     }
@@ -82,16 +82,16 @@ export const GameContainer:React.FC = () =>{
                 const newScores = {...scores,player:scores.player+1};
                 setScores(newScores);
                 setPlayerTurn(true);
-                setMessage(`Player wins this round with ${chosenPowerStat} ${playerStat}!`);
+                setMessage(`${PLAYER_ROUND_WIN} with ${chosenPowerStat} ${playerStat}!`);
             }else if(parseInt(playerStat)< parseInt(pcStat)){
                 const newScores = {...scores,pc:scores.pc+1};
                 setScores(newScores);
                 setPlayerTurn(false);
-                setMessage(`PC wins this round with ${chosenPowerStat} ${pcStat}!`);
+                setMessage(`${PC_ROUND_WIN} with ${chosenPowerStat} ${pcStat}!`);
             }else{
                 //scores equal
                 setPlayerTurn(true);
-                setMessage(`It's a draw with ${chosenPowerStat} ${playerStat}!`);
+                setMessage(`${DRAW} with ${chosenPowerStat} ${playerStat}!`);
             }
               setShowPCCard(true);
         }
@@ -125,16 +125,16 @@ export const GameContainer:React.FC = () =>{
                     const newScores = {...scores,player:scores.player+1};
                     setScores(newScores);
                     setPlayerTurn(true);
-                    setMessage(`Player wins this round with ${highestPowerStat} ${parseInt(playerStat) }!`);
+                    setMessage(`${PLAYER_ROUND_WIN} with ${highestPowerStat} ${parseInt(playerStat) }!`);
                 }else if(parseInt(playerStat)< parseInt(pcStat)){
                     const newScores = {...scores,pc:scores.pc+1};
                     setScores(newScores);
                     setPlayerTurn(false);
-                    setMessage(`PC wins this round with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                    setMessage(`${PC_ROUND_WIN} with ${highestPowerStat} ${parseInt(pcStat) }!`);
                 }else{
                     //scores equal
                     setPlayerTurn(true);
-                    setMessage(`It's a draw with ${highestPowerStat} ${parseInt(pcStat) }!`);
+                    setMessage(`${DRAW} with ${highestPowerStat} ${parseInt(pcStat) }!`);
                 }
                 setShowPCCard(true);
                 setPCTurn(false);
