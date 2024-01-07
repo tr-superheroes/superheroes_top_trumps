@@ -21,9 +21,31 @@
   .mixin-loop(@i - 1);
 }
 
-.mixin-top-layer(@i) {
+.mixin-loop-pc-top (@i) when (@i > 0) {
+  &:nth-child(@{i}) {
+    transform: rotate(@i * 2deg);
+      .keyframes(deal-card-pc-top;{
+            0% { rotate: 0;
+            margin-left: -24em;
+            opacity: 0.8}
+            50% { rotate: @i * -4deg; 
+                margin-left: -16em;
+            opacity: 0.9}
+            100% { rotate: @i * -5deg; 
+                margin-left: -7.5em;
+            opacity: 1 }
+            });
+    .animation(deal-card-pc-top 0.1s 0.1s linear 1 forwards);
+    .animation {
+      animation-timing-function: cubic-bezier(0.2, -2, 0.8, 2);
+    }
+  }
+  .mixin-loop-pc-top(@i - 1);
+}
+
+.mixin-top-layer-player(@i) {
   transform: rotate(@i* -2deg);
-    .keyframes(top-data; {
+    .keyframes(top-data-player; {
               0% { 
               opacity: 0}
               90% {opacity: 0;
@@ -34,7 +56,26 @@
               opacity: 1 }
               });
 
-  .animation(top-data 0.5s (5.3 - @i * 0.7s) linear 1 forwards);
+  .animation(top-data-player 0.5s (5.3 - @i * 0.7s) linear 1 forwards);
+  .animation {
+    animation-timing-function: cubic-bezier(0.2, -2, 0.8, 2);
+  }
+}
+
+.mixin-top-layer-pc(@i) {
+  transform: rotate(@i* -2deg);
+    .keyframes(top-data-pc; {
+              0% { 
+              opacity: 0}
+              50% {opacity: 0
+              }
+              100% { rotate: 11deg; 
+                  margin-left:  @i * 1.275 - 16em;
+                  width: @i * 0.3 + 16rem;
+              opacity: 1}
+              });
+
+  .animation(top-data-pc 0.1s 0.3s linear 1 forwards);
   .animation {
     animation-timing-function: cubic-bezier(0.2, -2, 0.8, 2);
   }
@@ -48,14 +89,15 @@
   opacity: 0;
   width: 18rem;
   margin: 7rem -12rem;
-  .mixin-loop(7);
 
   &--pc {
     background-color: lightgreen;
+    .mixin-loop(7);
   }
 
   &--player {
     background-color: lightblue;
+    .mixin-loop(7);
   }
 }
 
@@ -67,15 +109,17 @@
   opacity: 0;
   width: 18rem;
   margin: 7rem -12rem;
-
-  .mixin-loop(7);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 
   &__data {
     &--player {
       background-color: red;
+      .mixin-loop(7);
     }
     &--pc {
       background-color: yellow;
+      .mixin-loop-pc-top(7);
     }
   }
 }
@@ -132,8 +176,15 @@
 
 
 each(range(7), {
-  .hero@{value} {
+  .hero--player@{value} {
     margin-right: @value * -1.5rem;
-    .mixin-top-layer(@value);
+    .mixin-top-layer-player(@value);
+}
+});
+
+each(range(7), {
+  .hero--pc@{value} {
+    margin-right: @value * -1.5rem;
+    .mixin-top-layer-pc(@value);
 }
 });

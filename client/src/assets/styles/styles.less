@@ -45,9 +45,25 @@ h2, h3 {
     color: white;
   }
 
+.loading-error {
+  font-size: 2rem;
+  color: #6e1919;
+  font-family: "Bangers";
+  margin: 2rem;
+}
+
 .start {
   position: fixed;
   bottom: 0;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+   }
 }
 
 .shield {
@@ -98,6 +114,11 @@ h2, h3 {
   height: 100vw;
   background-repeat: no-repeat;
   z-index: 3000;
+  opacity: 0;
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 5s;
 
   @media (min-width: 600px) {
     width: 30%;
@@ -143,7 +164,7 @@ h2, h3 {
   bottom: 0;
   margin-left: 10vw;
   z-index: 3000;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   &:hover {
     background-color:  #c10404;
   }
@@ -162,6 +183,10 @@ h2, h3 {
       border: black solid 1px;
       color: white;
       box-shadow: 2px 2px black, 5px 5px orange;
+      opacity: 0;
+      animation: fadeInAnimation ease 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
       @media (min-width: 600px) {
         width: 20vw;
         margin: 5vh 40vw;
@@ -172,6 +197,11 @@ h2, h3 {
       color: white;
       border: black solid 2px;
       box-shadow: 2px 2px black, 5px 5px orange;
+      opacity: 0;
+      animation: fadeInAnimation ease 2s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+      animation-delay: 1s;
       @media (min-width: 600px) {
         width: 20vw;
         left: 37vw;

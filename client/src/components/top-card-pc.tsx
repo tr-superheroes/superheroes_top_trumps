@@ -15,7 +15,7 @@ export const TopCardPC: React.FC<TopCardPCProps> = ({
   playTurnPC,
   gameRound
 }) => {
-  const divClasses = `hero hero--pc hero${gameRound.toString()}`;
+  const divClasses = `hero hero--pc hero--pc${gameRound.toString()}`;
   console.log("PC card", card.name);
   console.log("PC turn", turn);
   if (turn) {

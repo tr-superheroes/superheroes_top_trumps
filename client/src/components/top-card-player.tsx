@@ -10,7 +10,7 @@ interface CardProps{
   showTime:boolean;
 }
 export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn, gameRound, showTime}) =>{
-  const divClasses = `hero hero--player hero${gameRound.toString()}`;
+  const divClasses = `hero hero--player hero--player${gameRound.toString()}`;
   console.log('card here:'+card.name);
     return (
         <>

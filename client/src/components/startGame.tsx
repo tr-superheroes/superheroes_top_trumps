@@ -47,7 +47,7 @@ export const StartGame:React.FC =() =>{
             }
             </div>
         </>}
-        {isError && (<p>Error Loading the game</p>)}
+        {isError && (<p className="loading-error">Error loading the game</p>)}
         {!isError && isLoading &&  
         <ShowLoading/>
         }
