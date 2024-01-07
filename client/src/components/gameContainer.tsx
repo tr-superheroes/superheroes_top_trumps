@@ -33,7 +33,6 @@ export const GameContainer:React.FC = () =>{
     const handleNextTurn =() =>{
         //check if last turn
         if(playedCard){
-
         
             if(cardIndex > 0){
                 if (playerTurn) {
@@ -60,7 +59,7 @@ export const GameContainer:React.FC = () =>{
                 }
                 setTimeout(()=>{
                     setIsGameDone(true);
-                },3000);
+                },5000);
             }
         }else{
             setMessage(PLAY_CARD_MSG);
@@ -74,7 +73,7 @@ export const GameContainer:React.FC = () =>{
         if(!playedCard && chosenPowerStat !== undefined){
             const playerStat = (playerCardsArray[cardIndex].powerstats)[chosenPowerStat];
             const pcStat = (pcArray[cardIndex].powerstats)[chosenPowerStat];
-           
+        
             setPlayedCard(true);
             
             if( parseInt(playerStat)> parseInt(pcStat) ){
@@ -93,31 +92,29 @@ export const GameContainer:React.FC = () =>{
                 setPlayerTurn(true);
                 setMessage(`${DRAW} with ${chosenPowerStat} ${playerStat}!`);
             }
-              setShowPCCard(true);
+            setShowPCCard(true);
         }
     }
 
     const findHighestStat = (pcPowerStats:PowerstatsObj):string => {
         let max = 0; let pcStat = "";
-        (Object.keys(pcPowerStats)as PowerstatsType[]).forEach((stat,index) => {
+        (Object.keys(pcPowerStats)as PowerstatsType[]).forEach((stat) => {
             if(parseInt(pcPowerStats[stat])>max){
                 max=parseInt(pcPowerStats[stat]);
                 pcStat=stat;
             }});
-       return pcStat;
+    return pcStat;
     }
 
     function timeout(delay: number) {
         return new Promise( res => setTimeout(res, delay) );
     }
-  
-
     
     const playTurnPC = async() => {
         const highestPowerStat = findHighestStat(pcArray[cardIndex].powerstats) as PowerstatsType ;
         const playerStat = (playerCardsArray[cardIndex].powerstats)[highestPowerStat];
             const pcStat = (pcArray[cardIndex].powerstats)[highestPowerStat];
-            await timeout(700);
+            await timeout(2000);
             
             if(!isGameDone){
                 if( parseInt(pcStat)< parseInt(playerStat) ){
@@ -139,8 +136,6 @@ export const GameContainer:React.FC = () =>{
                 setShowPCCard(true);
                 setPCTurn(false);
             }
-        
-
     }
 
     return (
@@ -160,10 +155,12 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {cardIndex} /> 
             </div>
 
-                <MessageContainer message={message} imgUrl=""></MessageContainer>
-
+            <MessageContainer message={message} imgUrl=""></MessageContainer>
+            
             <div className = "button-wrapper">
+                {!PCTurn && showPCCard &&
                 <NextTurn onClickFn={handleNextTurn}/>
+                }
             </div>
             
             <div className="card-container">
