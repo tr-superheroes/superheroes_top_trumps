@@ -20,7 +20,7 @@ describe("test startGame component", () => {
     );
   });
 
-   it("Start Game button", async () => {
+   it("Start Game button is present", async () => {
     server.listen();
     render(<App />);
     expect(await screen.findByRole("button", { name: /Start Game/i }));
