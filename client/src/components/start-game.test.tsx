@@ -6,10 +6,10 @@ import { it, expect, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
 import App from "../App";
 describe("test startGame component", () => {
-  // it("Test start game page", () => {
-  //   render(<App />);
-  //   expect(screen.getByText("Superhero")).toBeInTheDocument();
-  // });
+  it("Test start game page", () => {
+    render(<App />);
+    expect(screen.getByText("Superhero")).toBeInTheDocument();
+  });
 
 
 
@@ -20,7 +20,7 @@ describe("test startGame component", () => {
     );
   });
 
-   it("works", async () => {
+   it("Start Game button is present", async () => {
     server.listen();
     render(<App />);
     expect(await screen.findByRole("button", { name: /Start Game/i }));
@@ -28,10 +28,5 @@ describe("test startGame component", () => {
     server.close();
   });
 
-  // it.only("Test error loading page when page loaded but server not up", async () => {
-  //   render(<App />);
-  //   await waitFor(() =>
-  //     expect(screen.getByText("Error loading the game")).toBeInTheDocument()
-  //   );
-  // });
+
 });
