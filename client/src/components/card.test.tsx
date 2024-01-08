@@ -4,7 +4,7 @@ import { it, expect, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 describe("Test Card component", () => {
-  it("Test if image passed as props is present", () => {
+  it("Test if css passed as props is present", () => {
     const sampleCardProps: CardProps = {
       cardImage: "/../src/assets/images/card3.png",
       cssClass: "pc",
