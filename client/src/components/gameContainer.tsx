@@ -25,6 +25,7 @@ export const GameContainer:React.FC = () =>{
     const [PCTurn, setPCTurn] = useState(false);
     const [playedCard,setPlayedCard] = useState(false);
     const [isGameDone,setIsGameDone] = useState(false);
+    const [showWinner, setShowWinner] = useState(false);
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setChosenPowerStat(e.target.id as PowerstatsType);
@@ -49,6 +50,7 @@ export const GameContainer:React.FC = () =>{
                 setShowPCCard(false);
             } else {
                 //set winner message
+                setShowWinner(true);
                 if(scores.player > scores.pc){  
                     setPlayerTurn(true);
                     setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
@@ -156,7 +158,7 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {cardIndex} /> 
             </div>
 
-            <MessageContainer message={message} imgUrl="" playerTurn={playerTurn}></MessageContainer>
+            <MessageContainer message={message} imgUrl="" playerTurn={playerTurn} showWinner={showWinner}></MessageContainer>
             
             <div className = "button-wrapper">
                 {!PCTurn && showPCCard &&
