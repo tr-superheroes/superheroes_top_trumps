@@ -162,7 +162,7 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {cardIndex} /> 
             </div>
 
-            <MessageContainer message={message} imgUrl="" playerTurn={playerTurn} showWinner={showWinner}></MessageContainer>
+            <MessageContainer message={message} playerTurn={playerTurn} showWinner={showWinner}></MessageContainer>
             
             <div className = "button-wrapper">
                 {!PCTurn && showPCCard &&
