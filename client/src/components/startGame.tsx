@@ -9,7 +9,7 @@ export const StartGame:React.FC =() =>{
     const [response,setResponse] = useState<FetchGameResponse>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setError] = useState(false);
-    //const noOfCards = 7;
+
     const fetchCards = async() =>{
         try{
             setIsLoading(true);
@@ -17,17 +17,14 @@ export const StartGame:React.FC =() =>{
             const result = await data.json();
             setResponse(result.cards);
             setIsLoading(false);
-            console.log(result.cards.length);
         }catch(error){
             console.log(error);
             setError(true);
         }
     }
     useEffect(() => {
-          // Call the async function when component loads
         fetchCards();
-        console.log(response);
-        },[]); //handle no data case,maybe enable game button once data is ready
+        },[]); 
 
     const handleClick = () =>{
         setIsNewGame(false); //hides the button and loads the game container
