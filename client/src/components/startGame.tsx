@@ -1,6 +1,6 @@
 import { useState,useEffect, createContext } from "react"
 import { FETCH_URL, FetchGameResponse } from "../types/game.types";
-import { GameContainer } from "./gameContainer";
+import { GameContainer } from "./game-container";
 import ShowLoading from "./show-loading";
 
 export const GameContext = createContext<FetchGameResponse>([]);

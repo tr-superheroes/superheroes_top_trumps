@@ -3,7 +3,7 @@ import '@testing-library/react';
 
 import {it,expect} from 'vitest'; 
 import {fireEvent, render,screen} from '@testing-library/react';
-import { GameContainer } from './gameContainer';
+import { GameContainer } from './game-container';
 import { GameContext } from './startGame';
 
 
