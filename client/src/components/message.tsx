@@ -5,11 +5,11 @@ interface MessageProps{
 }
 export const MessageContainer:React.FC<MessageProps> =({message,imgUrl, playerTurn}) =>{
     return (
-        <div className = {playerTurn?"splashPlayer":"splashRobot"}>
-            <div className = {playerTurn?"splashPlayer__text":"splashRobot__text"}>
-            <p className ={playerTurn?"splashPlayer__text--main":"splashRobot__text--main"}>{message}</p>
+        <div className = {playerTurn?" splash splash--player":" splash splash--pc"}>
+            <div className = "splash__text">
+            <p className = "splash__text--main">{message}</p>
             {
-             imgUrl && 
+            imgUrl && 
                 <img src={imgUrl} alt="Whose turn image"/>
             }
             </div>

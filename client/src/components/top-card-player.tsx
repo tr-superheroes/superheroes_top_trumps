@@ -11,7 +11,7 @@ interface CardProps{
 }
 export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn, gameRound, showTime}) =>{
   const divClasses = `hero hero--player hero--player${gameRound.toString()}`;
-  console.log('card here:'+card.name);
+
     return (
         <>
         <div className = {divClasses}>
@@ -22,7 +22,6 @@ export const TopCardPlayer:React.FC<CardProps> =({card,onClickFn,optionChangeFn,
 
           {showTime?<PowerstatsList powerstats={card.powerstats} />:
           <PowerstatsForm onClickFn={onClickFn} optionChangeFn={optionChangeFn} powerstats={card.powerstats}/>}
-
           
         </div>
         </>

@@ -70,7 +70,6 @@ export const GameContainer:React.FC = () =>{
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
-        //e.currentTarget.disabled = true;
         
         if(!playedCard && chosenPowerStat !== undefined){
             const playerStat = (playerCardsArray[cardIndex].powerstats)[chosenPowerStat];
@@ -181,7 +180,6 @@ export const GameContainer:React.FC = () =>{
             
         </main>}
         {isGameDone && <StartGame/>}
-  
         </>
     )
 }
