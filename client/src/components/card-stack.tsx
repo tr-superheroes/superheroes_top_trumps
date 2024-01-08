@@ -22,7 +22,7 @@ export const CardStack:React.FC<CardStackProps> =
     return (
         <div className="card-wrapper">
             {
-            cardArray.length && cardArray.map((card: CardProps, index) => 
+            cardArray.length > 0 && cardArray.map((card: CardProps, index) => 
             <Card key= {index.toString()} cardImage = {card.cardImage} cssClass = {card.cssClass} />
             )
             }
