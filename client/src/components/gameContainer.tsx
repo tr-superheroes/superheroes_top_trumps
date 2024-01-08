@@ -74,7 +74,7 @@ export const GameContainer:React.FC = () =>{
         
         
     }
-    const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
+    const handlePlay = (e:React.FormEvent<HTMLInputElement>) =>{
         e.preventDefault();
         
         if(!playedCard && chosenPowerStat !== undefined){
