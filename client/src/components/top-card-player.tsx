@@ -4,7 +4,7 @@ import  {PowerstatsList} from "./powerstats-list"
 
 interface CardProps{
   card:TrumpCard;
-  onClickFn:() =>void;
+  onClickFn:(e:React.FormEvent<HTMLButtonElement>) =>void;
   optionChangeFn:(e:React.ChangeEvent<HTMLInputElement>)=>void;
   gameRound: number;
   showTime:boolean;
