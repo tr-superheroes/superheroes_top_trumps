@@ -4,7 +4,7 @@ import '@testing-library/react';
 import {it,expect} from 'vitest'; 
 import {fireEvent, render,screen} from '@testing-library/react';
 import { GameContainer } from './game-container';
-import { GameContext } from './startGame';
+import { GameContext } from './start-game';
 
 
 const response = [{id: '635', name: 'Steel', image: 'https://www.superherodb.com/pictures2/portraits/10/100/1383.jpg', 
