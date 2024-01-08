@@ -1,7 +1,6 @@
 const CARDS = "cards";
 const MOCKCARDS = "mockcards";
 export const FETCH_URL = `http://localhost:8080/api/${CARDS}/`;
-export const MOCK_FETCH_URL = `http://localhost:8080/api/${MOCKCARDS}/`;
 
 export type TrumpCard = {
   id: string;

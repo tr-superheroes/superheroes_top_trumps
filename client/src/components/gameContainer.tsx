@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { GameContext, StartGame } from "./startGame"
+import { GameContext, StartGame } from "./start-game"
 import { DRAW, MY_TURN, PC_ROUND_WIN, PC_WIN, PLAYER_ROUND_WIN, PLAYER_WIN, PLAY_CARD_MSG, PowerstatsObj, PowerstatsType, YOUR_TURN} from "../types/game.types";
 import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
