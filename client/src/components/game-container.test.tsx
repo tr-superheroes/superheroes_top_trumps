@@ -52,7 +52,7 @@ it('Checks if play button click shows winner',async ()=>{
     fireEvent.click(radioButton);
     fireEvent.click(playButton);
 
-    expect(screen.getByText(/win this round/i)).toBeEnabled();
+    expect(screen.getByText(/win this round/i)).toBeInTheDocument();
 })
 
 it('Checks if play button click without radio doesnt play the card',async ()=>{
@@ -66,7 +66,7 @@ it('Checks if play button click without radio doesnt play the card',async ()=>{
     //fireEvent.click(radioButton);
     fireEvent.click(playButton);
 
-    expect(screen.getByText(/your turn/i)).toBeEnabled();
+    expect(screen.getByText(/your turn/i)).toBeInTheDocument();
 })
 
 it('Checks if Next turn button shows on play of card',async ()=>{
