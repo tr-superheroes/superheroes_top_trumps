@@ -7,8 +7,7 @@ export const MessageContainer:React.FC<MessageProps> =({message,imgUrl}) =>{
         <div className = "splash">
             <div className = "splash__text">
             <p className ="splash__text--main">{message}</p>
-            {
-             imgUrl && 
+            { imgUrl && 
                 <img src={imgUrl} alt="Whose turn image"/>
             }
             </div>
