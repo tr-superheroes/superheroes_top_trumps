@@ -1,6 +1,6 @@
 import * as express from "express";
 import { Express } from "express";
-import { getCards } from "../services/superhero_card_services";
+import { getCards, getMockCards } from "../services/superhero_card_services";
 import { getRandomNumberFromQueryString } from "../helpers/card_route_parser";
 
 export function initialiseRoutes(app: Express) {
@@ -60,6 +60,15 @@ function addAPIRoutes(app: Express) {
         res.status(500).send({ message: "Invalid amount" });
         return;
     }
+  });
+
+  // this route allows clients to GET 14 mock cards
+  console.log("📨  Adding GET to get 14 mock cards route...");
+  apiRouter.get("/mockcards", async (req, res) => {
+    const result = JSON.stringify({
+      cards: await getMockCards(),
+    });
+    res.status(200).send(result);
   });
 
   console.log("🛠️  Applying API router to Express server...");

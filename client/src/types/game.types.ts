@@ -1,4 +1,6 @@
-export const FETCH_URL = "http://localhost:8080/api/cards/";
+const CARDS = "cards";
+const MOCKCARDS = "mockcards";
+export const FETCH_URL = `http://localhost:8080/api/${CARDS}/`;
 
 export type TrumpCard = {
   id: string;

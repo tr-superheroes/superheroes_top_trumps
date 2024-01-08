@@ -3,6 +3,7 @@ import {
   isPresentInDeck,
   generateCards,
   fetchCard,
+  generateMockCards,
 } from "../services/generate_superhero_cards";
 import { Card } from "../types/cards.types";
 import { URL } from "../helpers/constants";
@@ -127,5 +128,12 @@ describe("test fetchCard function ", () => {
     };
     const card = await fetchCard(urlForCard);
     expect(card).toEqual(sampleCard);
+  });
+});
+
+describe("test generateMockCards function ", () => {
+  it("should return number of cards as passed to generateCards function", async () => {
+    const cards = await generateMockCards();
+    expect(cards.length).toBe(14);
   });
 });
