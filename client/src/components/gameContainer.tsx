@@ -25,17 +25,13 @@ export const GameContainer:React.FC = () =>{
     const [PCTurn, setPCTurn] = useState(false);
     const [playedCard,setPlayedCard] = useState(false);
     const [isGameDone,setIsGameDone] = useState(false);
+    const [showWinner, setShowWinner] = useState(false);
 
     const handleOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setChosenPowerStat(e.target.id as PowerstatsType);
     }
     
-    const handleNextTurn =(e:React.MouseEvent<HTMLButtonElement>) =>{
-        
-        //if end game check
-        if('End Game' === e.currentTarget.innerText ){
-            setIsGameDone(true);
-        }
+    const handleNextTurn =() =>{
         //check if last turn
         if(playedCard){
             if(cardIndex > 0) {
@@ -54,25 +50,27 @@ export const GameContainer:React.FC = () =>{
                 setShowPCCard(false);
             } else {
                 //set winner message
+                setShowWinner(true);
                 e.currentTarget.innerText="End Game";
                 if(scores.player > scores.pc){  
+                    setPlayerTurn(true);
                     setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
                 }else if(scores.player < scores.pc){
+                    setPlayerTurn(false);
                     setMessage(`${PC_WIN} with scores ${scores.pc}:${scores.player}`);
                 }else{
+                    setPlayerTurn(true);
                     setMessage(`${DRAW} with score ${scores.player}`);
                 }
-                
+            }else{
+                setMessage(PLAY_CARD_MSG);
             }
-        }else{
-            setMessage(PLAY_CARD_MSG);
         }
         
         
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
         e.preventDefault();
-        //e.currentTarget.disabled = true;
         
         if(!playedCard && chosenPowerStat !== undefined){
             const playerStat = (playerCardsArray[cardIndex].powerstats)[chosenPowerStat];
@@ -159,7 +157,7 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {cardIndex} /> 
             </div>
 
-            <MessageContainer message={message} imgUrl=""></MessageContainer>
+            <MessageContainer message={message} imgUrl="" playerTurn={playerTurn} showWinner={showWinner}></MessageContainer>
             
             <div className = "button-wrapper">
                 {!PCTurn && showPCCard &&
@@ -183,7 +181,6 @@ export const GameContainer:React.FC = () =>{
             
         </main>}
         {isGameDone && <StartGame/>}
-  
         </>
     )
 }

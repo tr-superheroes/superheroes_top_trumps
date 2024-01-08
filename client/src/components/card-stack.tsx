@@ -11,8 +11,6 @@ interface CardStackProps {
 export const CardStack:React.FC<CardStackProps> = 
 ({stackLength, cssClassType, topCardImage, showTopCardData, cardBackImage}) =>{
 
-    console.log("stackLength", stackLength);
-
     const cssCardBackClass = `card card--${cssClassType}`;
     const cssTopLayerClass = `top top__data--${cssClassType}`;
     const noOfReversedCards = showTopCardData? stackLength: stackLength + 1;
@@ -24,7 +22,7 @@ export const CardStack:React.FC<CardStackProps> =
     return (
         <div className="card-wrapper">
             {
-            cardArray.length && cardArray.map((card: CardProps, index) => 
+            cardArray.length > 0 && cardArray.map((card: CardProps, index) => 
             <Card key= {index.toString()} cardImage = {card.cardImage} cssClass = {card.cssClass} />
             )
             }
