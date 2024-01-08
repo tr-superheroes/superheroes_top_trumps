@@ -5,7 +5,7 @@ import { TopCardPlayer } from "./top-card-player";
 import { TopCardPC } from "./top-card-pc";
 import { CardStack } from "./card-stack";
 import { MessageContainer } from "./message";
-import { NextTurn } from "./nextTurn";
+import { NextTurn } from "./next-turn";
 
 export const GameContainer:React.FC = () =>{
     //load message container for showing scores/winner for each round
