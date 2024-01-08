@@ -16,7 +16,7 @@ export const PowerstatsForm:React.FC<FormProps> =({powerstats,onClickFn,optionCh
             {  
             (Object.keys(powerstats)as PowerstatsType[]).map((stat, index) => (
                 <RadioButton key={index.toString()} id={stat} onChange={optionChangeFn} 
-                value={powerstats[stat]} label = {`${stat}: ${powerstats[stat]}`}/>
+                value={powerstats[stat]} />
             ))}
             <input id="submit" className="hero__button" type="submit"  value="Play Card" onClick={onClickFn}/>
         </form>
