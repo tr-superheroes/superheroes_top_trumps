@@ -31,46 +31,50 @@ export const GameContainer:React.FC = () =>{
         setChosenPowerStat(e.target.id as PowerstatsType);
     }
     
-    const handleNextTurn =() =>{
-        //check if last turn
-        if(playedCard){
-            if(cardIndex > 0) {
-                if (playerTurn) {
-                    setPlayedCard(false);
-                    setMessage(YOUR_TURN);
-                    setPCTurn(false);
-                }
-                else {
-                    setMessage(MY_TURN);
-                    setPCTurn(true);
-                }
-                //assign for next round trigger
-                const tmp = cardIndex-1;  
-                setCardIndex(tmp);
-                setShowPCCard(false);
-            } else {
-                //set winner message
-                setShowWinner(true);
-                if(scores.player > scores.pc){  
-                    setPlayerTurn(true);
-                    setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
-                }else if(scores.player < scores.pc){
-                    setPlayerTurn(false);
-                    setMessage(`${PC_WIN} with scores ${scores.pc}:${scores.player}`);
-                }else{
-                    setPlayerTurn(true);
-                    setMessage(`${DRAW} with score ${scores.player}`);
-                }
-                setTimeout(()=>{
-                    setIsGameDone(true);
-                },5000);
-            }
+    const handleNextTurn =(e:React.MouseEvent<HTMLButtonElement>) =>{
+        if(showWinner){
+            setIsGameDone(true);
         }else{
-            setMessage(PLAY_CARD_MSG);
+
+            //check if last turn
+            if(playedCard){
+                if(cardIndex > 0) {
+                    if (playerTurn) {
+                        setPlayedCard(false);
+                        setMessage(YOUR_TURN);
+                        setPCTurn(false);
+                    }
+                    else {
+                        setMessage(MY_TURN);
+                        setPCTurn(true);
+                    }
+                    //assign for next round trigger
+                    const tmp = cardIndex-1;  
+                    setCardIndex(tmp);
+                    setShowPCCard(false);
+                } else {
+                    //set winner message
+                    setShowWinner(true);
+                    e.currentTarget.innerText="End Game";
+                    if(scores.player > scores.pc){  
+                        setPlayerTurn(true);
+                        setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
+                    }else if(scores.player < scores.pc){
+                        setPlayerTurn(false);
+                        setMessage(`${PC_WIN} with scores ${scores.pc}:${scores.player}`);
+                    }else{
+                        setPlayerTurn(true);
+                        setMessage(`${DRAW} with score ${scores.player}`);
+                    }
+                } 
+            } else{
+                setMessage(PLAY_CARD_MSG);
+            }
         }
         
+        
     }
-    const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
+    const handlePlay = (e:React.FormEvent<HTMLInputElement>) =>{
         e.preventDefault();
         
         if(!playedCard && chosenPowerStat !== undefined){

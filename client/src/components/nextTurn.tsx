@@ -1,5 +1,5 @@
 interface TurnProps{
-    onClickFn : () =>void;
+    onClickFn : (e:React.MouseEvent<HTMLButtonElement>) =>void;
 }
 
 export const NextTurn:React.FC<TurnProps> =({onClickFn})=>{
