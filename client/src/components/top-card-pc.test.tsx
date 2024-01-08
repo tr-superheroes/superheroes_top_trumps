@@ -12,7 +12,7 @@ power:"64",
 speed:"53",
 strength:"82"}}
 
-it('Test start game button',()=>{
+it('Test top pc card loaded with name',()=>{
 
     const test=vi.fn();
     render(<TopCardPC card={sampleCard} gameRound={5} playTurnPC={test} turn={true} show={true}/>);
