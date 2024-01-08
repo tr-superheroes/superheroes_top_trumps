@@ -30,7 +30,12 @@ export const GameContainer:React.FC = () =>{
         setChosenPowerStat(e.target.id as PowerstatsType);
     }
     
-    const handleNextTurn =() =>{
+    const handleNextTurn =(e:React.MouseEvent<HTMLButtonElement>) =>{
+        
+        //if end game check
+        if('End Game' === e.currentTarget.innerText ){
+            setIsGameDone(true);
+        }
         //check if last turn
         if(playedCard){
             if(cardIndex > 0) {
@@ -49,6 +54,7 @@ export const GameContainer:React.FC = () =>{
                 setShowPCCard(false);
             } else {
                 //set winner message
+                e.currentTarget.innerText="End Game";
                 if(scores.player > scores.pc){  
                     setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
                 }else if(scores.player < scores.pc){
@@ -56,13 +62,12 @@ export const GameContainer:React.FC = () =>{
                 }else{
                     setMessage(`${DRAW} with score ${scores.player}`);
                 }
-                setTimeout(()=>{
-                    setIsGameDone(true);
-                },5000);
+                
             }
         }else{
             setMessage(PLAY_CARD_MSG);
         }
+        
         
     }
     const handlePlay = (e:React.FormEvent<HTMLButtonElement>) =>{
