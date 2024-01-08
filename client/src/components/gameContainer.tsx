@@ -50,10 +50,13 @@ export const GameContainer:React.FC = () =>{
             } else {
                 //set winner message
                 if(scores.player > scores.pc){  
+                    setPlayerTurn(true);
                     setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
                 }else if(scores.player < scores.pc){
+                    setPlayerTurn(false);
                     setMessage(`${PC_WIN} with scores ${scores.pc}:${scores.player}`);
                 }else{
+                    setPlayerTurn(true);
                     setMessage(`${DRAW} with score ${scores.player}`);
                 }
                 setTimeout(()=>{
@@ -153,7 +156,7 @@ export const GameContainer:React.FC = () =>{
                 stackLength = {cardIndex} /> 
             </div>
 
-            <MessageContainer message={message} imgUrl=""></MessageContainer>
+            <MessageContainer message={message} imgUrl="" playerTurn={playerTurn}></MessageContainer>
             
             <div className = "button-wrapper">
                 {!PCTurn && showPCCard &&
