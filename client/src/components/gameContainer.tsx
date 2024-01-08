@@ -33,8 +33,7 @@ export const GameContainer:React.FC = () =>{
     const handleNextTurn =() =>{
         //check if last turn
         if(playedCard){
-        
-            if(cardIndex > 0){
+            if(cardIndex > 0) {
                 if (playerTurn) {
                     setPlayedCard(false);
                     setMessage(YOUR_TURN);
@@ -48,14 +47,14 @@ export const GameContainer:React.FC = () =>{
                 const tmp = cardIndex-1;  
                 setCardIndex(tmp);
                 setShowPCCard(false);
-            }else{
+            } else {
                 //set winner message
                 if(scores.player > scores.pc){  
-                    setMessage(PLAYER_WIN);
+                    setMessage(`${PLAYER_WIN} with scores ${scores.player}:${scores.pc}`);
                 }else if(scores.player < scores.pc){
-                    setMessage(PC_WIN);
+                    setMessage(`${PC_WIN} with scores ${scores.pc}:${scores.player}`);
                 }else{
-                    setMessage(DRAW);
+                    setMessage(`${DRAW} with score ${scores.player}`);
                 }
                 setTimeout(()=>{
                     setIsGameDone(true);
