@@ -1,9 +1,7 @@
 import '@testing-library/jest-dom';
 import '@testing-library/react';
 
-import {setupServer} from 'msw/node';
-
-import {it,expect, beforeAll, afterAll,afterEach} from 'vitest'; 
+import {it,expect} from 'vitest'; 
 import {fireEvent, render,screen} from '@testing-library/react';
 import { GameContainer } from './gameContainer';
 import { GameContext } from './startGame';
