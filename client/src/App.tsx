@@ -1,5 +1,5 @@
 import './App.less'
-import { StartGame } from './components/startGame'
+import { StartGame } from './components/start-game'
 
 function App() {
   return (
