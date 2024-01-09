@@ -36,11 +36,12 @@ it('Checks if radio button change calls fn',async ()=>{
     expect(test).toBeCalled();
 })
 it('Checks if play button click calls fn',async ()=>{
-    const test = vi.fn();
-    render(<PowerstatsForm powerstats={response[0].powerstats} onClickFn={test} optionChangeFn={test}/>);
+    const onClicktest = vi.fn(e => e.preventDefault());
+    const onOptionChangetest = vi.fn();
+    render(<PowerstatsForm powerstats={response[0].powerstats} onClickFn={onClicktest} optionChangeFn={onOptionChangetest}/>);
     const playButton = await screen.getByRole('button');
 
      fireEvent.click(playButton);
 
-    expect(test).toBeCalled();
+    expect(onClicktest).toBeCalled();
 })
